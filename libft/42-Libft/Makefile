@@ -11,7 +11,7 @@ OBJDIR = ../../obj
 LIBFT_OBJ := 42lib
 OFILES = $(CFILES:%.c=$(OBJDIR)/$(LIBFT_OBJ)/%.o)
 BONUS_OFILES = $(BONUS_FILES:%.c=$(OBJDIR)/$(LIBFT_OBJ)/%.o)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 CC = cc
 NAME = ../../libft.a
 NAME_BONUS = ../../libft.a
