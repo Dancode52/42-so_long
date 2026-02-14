@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   map_validity.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/14 18:01:46 by dlanehar         ###   ########.fr       */
+/*   Created: 2026/02/14 13:15:05 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/14 16:09:22 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "../headers/libft.h"
-# include "../headers/get_next_line_bonus.h"
-# include <stdlib.h>
-# include <fcntl.h>
+#include <so_long.h>
 
+void input_validity(char **map)
+{
 
+}
 
-#endif
+void validity_check(char **map)
+{
+//---- check the validity of the input map
+	input_validity(map);
+//---- check if map 
+}
