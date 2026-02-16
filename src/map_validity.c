@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:15:05 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 15:48:54 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:19:39 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,23 @@ void	error_check(char **map, t_map_errors *error)
 	}
 }
 
-void input_validity(char **map, t_map_count *count, t_map_errors *error)
+void input_validity(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	//empty_line_check(map, error);
-	dimension_check(map, error);
-	wall_check(map, error);
-	parameter_check(map, count, error);
-
+	dimension_check(map, map_info, error);
+	wall_check(map, map_info, error);
+	parameter_check(map, map_info, error);
 }
 
-void validity_check(char **map)
+void validity_check(char **map, t_map_count *map_info)
 {
-	t_map_count count;
+	//t_map_count count;
 	t_map_errors error;
 
-	ft_bzero(&count, sizeof(t_map_count));
+	ft_bzero(map_info, sizeof(t_map_count));
 	ft_bzero(&error, sizeof(t_map_errors));
 //---- check the validity of the input map
-	input_validity(map, &count, &error);
+	input_validity(map, map_info, &error);
 //---- check if map is playable
 	//flood_fill_part(map);
 	error_check(map, &error);

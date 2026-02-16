@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:51:18 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 16:02:51 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:19:42 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	map_height(char **map)
 	return (height);
 }
 
-void	check_top_bottom_walls(char **map, t_map_errors *error)
+void	check_top_bottom_walls(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t	row;
 	size_t	column;
@@ -44,7 +44,7 @@ void	check_top_bottom_walls(char **map, t_map_errors *error)
 	}
 }
 
-void	check_left_right_walls(char **map, t_map_errors *error)
+void	check_left_right_walls(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t	row;
 	size_t	len;
@@ -52,9 +52,9 @@ void	check_left_right_walls(char **map, t_map_errors *error)
 	if (error->dimension_error)
 		return ;
 	row = 0;
-	len = ft_strlen(map[row]);
 	while (map[row])
 	{
+		len = ft_strlen(map[row]);
 		if (map[row][0] != '1' || map[row][len - 1] != '1')
 		{
 			error->leftright_error = 1;

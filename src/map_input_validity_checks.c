@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:30:29 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 15:48:02 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:19:41 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 // 	while (map[row])
 // }
 
-void dimension_check(char **map, t_map_errors *error)
+void dimension_check(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t	row;
 	size_t	len_to_match;
@@ -57,13 +57,13 @@ void dimension_check(char **map, t_map_errors *error)
 	}
 }
 
-void wall_check(char **map, t_map_errors *error)
+void wall_check(char **map, t_map_count *map_info, t_map_errors *error)
 {
-	check_top_bottom_walls(map, error);
-	check_left_right_walls(map, error);
+	check_top_bottom_walls(map, map_info, error);
+	check_left_right_walls(map, map_info, error);
 }
 
-void	parameter_check(char **map, t_map_count *count, t_map_errors *error)
+void	parameter_check(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t		row;
 	size_t		column;
@@ -75,12 +75,12 @@ void	parameter_check(char **map, t_map_count *count, t_map_errors *error)
 		while (map[row][column])
 		{
 			check_valid_char(map[row][column], error);
-			count_player(count, map[row][column]);
-			count_exit(count, map[row][column]);
-			count_collectible(count, map[row][column]);
+			count_player(map_info, map[row][column]);
+			count_exit(map_info, map[row][column]);
+			count_collectible(map_info, map[row][column]);
 			column++;
 		}
 		row++;
 	}
-	validate_count(count, error);
+	validate_count(map_info, error);
 }

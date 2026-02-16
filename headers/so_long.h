@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 15:47:30 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:19:44 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,22 @@ typedef struct s_map_count
 	size_t	player_count;
 	size_t	exit_count;
 	size_t	collect_count;
-	//size_t
+	size_t	map_height;
+	size_t	map_width;
+	int		player_pos[2];
+	int		collect_pos[2];
+	int		exit_pos[2];
+	char	**map;
 }	t_map_count;
 
 typedef struct s_map_errors
 {
 	int	is_error;
 	int	dimension_error;
-	int topbot_error;
+	int	topbot_error;
 	int	leftright_error;
 	int	player_error;
-	int exit_error;
+	int	exit_error;
 	int	collecible_error;
 	int	char_error;
 	int	fill_error;
@@ -43,7 +48,7 @@ typedef struct s_map_errors
 void	free_memory(char **memory);
 
 // ---- MAP CREATION FUNCTIONS
-char	**map_maker(char *map_path);
+char	**map_maker(char *map_path, t_map_count *map_info);
 char	**map_loading(char *map_path);
 void	map_path_check(char *mappath);
 char	*load_map_to_string(char *map_path);
@@ -51,20 +56,20 @@ char	*make_string_from_file(char *buf, int fd);
 char	**load_map_to_array(char *mapstr);
 
 // ---- MAP VALIDATION
-void	input_validity(char **map, t_map_count *count, t_map_errors *error);
+void	input_validity(char **map, t_map_count *map_info, t_map_errors *error);
 void	empty_line_check(char **map, t_map_errors *error);
-void	dimension_check(char **map, t_map_errors *error);
-void	wall_check(char **map, t_map_errors *error);
-void	check_top_bottom_walls(char **map, t_map_errors *error);
-void	check_left_right_walls(char **map, t_map_errors *error);
+void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error);
+void	wall_check(char **map, t_map_count *map_info, t_map_errors *error);
+void	check_top_bottom_walls(char **map, t_map_count *map_info, t_map_errors *error);
+void	check_left_right_walls(char **map, t_map_count *map_info, t_map_errors *error);
 size_t	map_height(char **map);
-void	parameter_check(char **map, t_map_count *count, t_map_errors *error);
+void	parameter_check(char **map, t_map_count *map_info, t_map_errors *error);
 void	check_valid_char(char map_tile, t_map_errors *error);
 void	count_player(t_map_count *count, char map_tile);
 void	count_collectible(t_map_count *count, char map_tile);
 void	count_exit(t_map_count *count, char map_tile);
 void	validate_count(t_map_count *count, t_map_errors *error);
-void	validity_check(char **map);
+void	validity_check(char **map, t_map_count *map_info);
 void	error_check(char **map, t_map_errors *error);
 //void	validation_error(char *str);
 #endif

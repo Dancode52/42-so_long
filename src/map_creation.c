@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 15:32:33 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:19:43 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	error_function(int error)
 	}
 }
 
-char **map_maker(char *map_path)
+char **map_maker(char *map_path, t_map_count *map_info)
 {
 	char **map;
 
@@ -47,6 +47,11 @@ char **map_maker(char *map_path)
 	map = map_loading(map_path);
 	//ft_printf("Map loaded!\n");
 //---- check if map is valid
-	validity_check(map);
+	if (!map)
+	{
+		ft_putstr_fd("Error\nEmpty map\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	validity_check(map, map_info);
 	return (map);
 }
