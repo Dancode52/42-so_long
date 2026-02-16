@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:36:25 by dlanehar         ###   ########.fr       */
+/*   Created: 2025/10/17 11:26:28 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/15 13:43:47 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int	i;
-	char	**map;
+	size_t		i;
+	const char	*csrc;
+	char		*cdest;
 
-	if (argc != 2)
+	i = n;
+	csrc = (const char *)src;
+	cdest = (char *)dest;
+	if (src < dest)
 	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
+		while (i > 0)
+		{
+			cdest[i - 1] = csrc[i - 1];
+			i--;
+		}
+		return (cdest);
 	}
-	map = map_maker(argv[1]);
-	if (!map)
-		return (0);
-	i = 0;
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
-	free_memory(map);
+	cdest = ft_memcpy(dest, src, n);
+	return (cdest);
 }

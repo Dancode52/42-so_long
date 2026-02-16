@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:36:25 by dlanehar         ###   ########.fr       */
+/*   Created: 2025/10/17 14:37:11 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/15 13:43:47 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	int	i;
-	char	**map;
+	size_t	i;
+	size_t	len;
+	char	*ptr;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
-	}
-	map = map_maker(argv[1]);
-	if (!map)
-		return (0);
 	i = 0;
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
-	free_memory(map);
+	len = ft_strlen(s);
+	ptr = malloc(len * sizeof(char) + 1);
+	if (ptr == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:36:25 by dlanehar         ###   ########.fr       */
+/*   Created: 2025/10/24 09:23:19 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/15 13:43:47 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/libft.h"
 
-int	main(int argc, char **argv)
+ssize_t	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-	char	**map;
+	ssize_t	written_chars;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
-	}
-	map = map_maker(argv[1]);
-	if (!map)
-		return (0);
-	i = 0;
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
-	free_memory(map);
+	written_chars = 0;
+	if (!s || fd < 0)
+		return (-1);
+	written_chars = write(fd, s, ft_strlen(s));
+	return (written_chars);
 }

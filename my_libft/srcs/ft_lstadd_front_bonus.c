@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:36:25 by dlanehar         ###   ########.fr       */
+/*   Created: 2025/10/30 10:40:14 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/15 13:43:47 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-	char	**map;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
-	}
-	map = map_maker(argv[1]);
-	if (!map)
-		return (0);
-	i = 0;
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
-	free_memory(map);
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+		new->next = NULL;
+	else
+		new->next = *lst;
+	*lst = new;
 }

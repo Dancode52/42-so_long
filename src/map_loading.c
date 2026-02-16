@@ -6,12 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/14 13:17:33 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 13:51:14 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
-#include <stdio.h>
+#include "../headers/so_long.h"
 
 void	map_path_check(char *mappath)
 {
@@ -29,7 +28,7 @@ void	map_path_check(char *mappath)
 	while (j < 4)
 	{
 		if (mappath[i - 1] == str[3 - j])
-			printf("%i letters match\n", j);
+			ft_printf("%i letters match\n", j + 1);
 		else
 		{
 			//exitfunctionforerrors;
@@ -70,7 +69,7 @@ char *make_string_from_file(char *buf, int fd)
 	while (readchars > 0)
 	{
 		readchars = read(fd, buf, BUFFER_SIZE);
-		if (readchars = 0)
+		if (readchars == 0)
 			break ;
 		if (readchars < 0)
 			//functiontofreeifthingsbreak;

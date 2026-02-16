@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   generic_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:36:25 by dlanehar         ###   ########.fr       */
+/*   Created: 2026/02/16 11:34:51 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/16 11:59:20 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-int	main(int argc, char **argv)
+void	free_memory(char **memory)
 {
 	int	i;
-	char	**map;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
-	}
-	map = map_maker(argv[1]);
-	if (!map)
-		return (0);
 	i = 0;
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
-	free_memory(map);
+	while (memory[i])
+	{
+		free(memory[i]);
+		i++;
+	}
+	free(memory);
+	return ;
 }

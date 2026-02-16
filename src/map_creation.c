@@ -6,12 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/14 18:02:08 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/16 15:32:33 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long.h>
-#include <stdio.h>
+#include "../headers/so_long.h"
 
 void	error_function(int error);
 
@@ -42,8 +41,11 @@ void	error_function(int error)
 char **map_maker(char *map_path)
 {
 	char **map;
+
 //---- load the map
+	//ft_printf("Map loading...\n");
 	map = map_loading(map_path);
+	//ft_printf("Map loaded!\n");
 //---- check if map is valid
 	validity_check(map);
 	return (map);
