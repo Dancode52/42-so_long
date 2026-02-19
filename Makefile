@@ -7,7 +7,7 @@ SRC_DIR := src
 
 SRC := generic_utils.c map_creation.c map_input_validity_checks_utils_1.c \
 	map_input_validity_checks_utils_2.c map_input_validity_checks.c \
-	map_loading.c map_validity.c so_long.c\
+	map_loading.c map_validity.c so_long.c error_handling.c\
 
 SRC_FILES := $(addprefix ./$(SRC_DIR)/, $(SRC))
 

@@ -6,35 +6,78 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 19:19:43 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:22:06 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-void	error_function(int error);
-
-void	error_function(int error)
+void store_player(t_map_count *map_info, size_t row, size_t column)
 {
-	if (error == -1)
+	map_info->player_pos[0] = row;
+	map_info->player_pos[1] = column;
+}
+
+void store_exit(t_map_count *map_info, size_t row, size_t column)
+{
+	map_info->exit_pos[0] = row;
+	map_info->exit_pos[1] = column;
+}
+
+void store_collect(t_map_count *m_info, size_t row, size_t col, char **map)
+{
+	static size_t count = 0;
+	size_t fail;
+
+	fail = 0;
+	if (count < m_info->collect_count)
 	{
-		write(2, "Error\n", 6);
-		write(2, "Malloc error\n", 13);
+		m_info->collect_pos[count] = ft_calloc(2, sizeof(int));
+		if (!m_info->collect_pos[count])
+		{
+			free_memory(map);
+			while (fail < row)
+			{
+				free(m_info->collect_pos[fail]);
+				fail++;
+			}
+			free(m_info->collect_pos);
+			ft_putstr_fd("Error\nMalloc failure\n", 2);
+			exit(EXIT_FAILURE);
+		}
+		m_info->collect_pos[count][0] = row;
+		m_info->collect_pos[count][1] = col;
+	}
+	count ++;
+}
+
+void	store_info(char **map, t_map_count *map_info)
+{
+	size_t	row;
+	size_t	column;
+
+	row = 0;
+	map_info->collect_pos = ft_calloc(map_info->collect_count, sizeof(size_t *));
+	if (!map_info->collect_pos)
+	{
+		free_memory(map);
+		ft_putstr_fd("Error\nMalloc failure\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (error == -2)
+	while (map[row])
 	{
-		write(2, "Error\n", 6);
-		write(2, "Invalid number of args or no .ber file.\n", 40);
-		write(2, "Valid input is './so_long path/to/map.ber'.\n", 44);
-		exit(EXIT_FAILURE);
-	}
-	if (error == -3)
-	{
-		write(2, "Error\n", 6);
-		write(2, "Map invalid. A line of the given map is too long.\n", 54);
-		write(2, "Make sure all lines are of equal length \n", 41);
-		exit(EXIT_FAILURE);
+		column = 0;
+		while (map[row][column])
+		{
+			if (map[row][column] == 'P')
+				store_player(map_info, row, column);
+			if (map[row][column] == 'E')
+				store_exit(map_info, row, column);
+			if (map[row][column] == 'C')
+				store_collect(map_info, row, column, map);
+			column++;
+		}
+		row++;
 	}
 }
 
@@ -43,9 +86,10 @@ char **map_maker(char *map_path, t_map_count *map_info)
 	char **map;
 
 //---- load the map
-	//ft_printf("Map loading...\n");
+	ft_printf("Map loading...\n");
 	map = map_loading(map_path);
-	//ft_printf("Map loaded!\n");
+	ft_printf("Map loaded!\n");
+	printmap(map);
 //---- check if map is valid
 	if (!map)
 	{
@@ -53,5 +97,7 @@ char **map_maker(char *map_path, t_map_count *map_info)
 		exit(EXIT_FAILURE);
 	}
 	validity_check(map, map_info);
+	ft_printf("Storing info\n");
+	store_info(map, map_info);
 	return (map);
 }

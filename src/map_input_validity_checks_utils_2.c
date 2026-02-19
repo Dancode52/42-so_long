@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:45:10 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 19:19:41 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:39:21 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void check_valid_char(char map_tile, t_map_errors *error)
 
 	valid_chars = "01CEP";
 	if (!ft_strchr(valid_chars, map_tile))
+	{
+		error->is_error = 1;
 		error->char_error = 1;
+	}
 }
 
 void count_player(t_map_count *map_info, char map_tile)
@@ -63,10 +66,19 @@ void	count_collectible(t_map_count *map_info, char map_tile)
 void	validate_count(t_map_count *map_info, t_map_errors *error)
 {
 	if (map_info->player_count != 1)
+	{
+		error->is_error = 1;
 		error->player_error = 1;
+	}
 	if (map_info->exit_count != 1)
+	{
+		error->is_error = 1;
 		error->exit_error = 1;
+	}
 	if (map_info->collect_count < 1)
+	{
+		error->is_error = 1;
 		error->collecible_error = 1;
+	}
 }
 

@@ -6,15 +6,16 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 19:19:40 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:23:24 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
-	int	i;
+	size_t	i;
 	char	**map;
 	t_map_count map_info;
 
@@ -29,6 +30,25 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (map[i])
 		ft_printf("%s\n", map[i++]);
-	ft_printf("It worked! i = %d. GG!\n", i);
+	i = 0;
+	while (i < map_info.collect_count)
+	{
+		printf("collect pos 1: %zu\ncollect pos 2: %zu\n", map_info.collect_pos[i][0], map_info.collect_pos[i][1]);
+		i++;
+	}
+	ft_printf("It worked! i = %zu. GG!\n", i);
 	free_memory(map);
+	i = 0;
+	while (i < map_info.collect_count)
+		free(map_info.collect_pos[i++]);
+	free(map_info.collect_pos);
+}
+
+void	printmap(char **map)
+{
+	size_t i;
+
+	i = 0;
+	while (map[i])
+		ft_printf("%s\n", map[i++]);
 }

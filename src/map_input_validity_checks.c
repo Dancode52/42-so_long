@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:30:29 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 19:19:41 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 15:34:04 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,39 +23,53 @@
 // //-- check there's only one exit
 // 	wheres_the_exit(map);
 
-// void	empty_line_check(char **map, t_map_errors *error)
-// {
-// 	size_t	row;
-// 	size_t	column;
-
-// 	row = 0;
-// 	while (map[row])
-// }
-
-void dimension_check(char **map, t_map_count *map_info, t_map_errors *error)
+void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error)
 {
-	size_t	row;
-	size_t	len_to_match;
-	size_t	len;
+	size_t	i;
 
-	row = 0;
-	len_to_match = 0;
-	while (map[row])
+	i = 0;
+	map_info->map_width = ft_strlen(map[i]);
+	map_info->map_height = map_height(map);
+	while (i < map_info->map_height)
 	{
-		len = ft_strlen(map[row]);
-		if (!len_to_match)
-			len_to_match = len;
-		if (len_to_match != len)
-			{
-				error->dimension_error = 1;
-				// free_memory(map);
-				// write(2, "Error\n", 6);
-				// write(2, "Inconsistent map line length\n", 20);
-				// exit(EXIT_FAILURE);
-			}
-		row++;
+		if (map_info->map_width != ft_strlen(map[i]))
+			error->dimension_error = 1;
+		i++;
 	}
+	if (map_info->map_width < 3 || map_info->map_height < 3)
+	{
+		if (map_info->map_width < 3)
+			error->width_error = 1;
+		if (map_info->map_height < 3)
+			error->height_error = 1;
+	}
+	if (map_info->map_width == 3 && map_info->map_height == 3)
+		error->three_by_three = 1;
+	if (error->dimension_error || error->width_error || error->height_error
+			|| error->three_by_three)
+		error->is_error = 1;
 }
+	// size_t	row;
+	// size_t	len_to_match;
+	// size_t	len;
+
+	// row = 0;
+	// len_to_match = 0;
+	// while (map[row])
+	// {
+	// 	len = ft_strlen(map[row]);
+	// 	if (!len_to_match)
+	// 		len_to_match = len;
+	// 	if (len_to_match != len)
+	// 		{
+	// 			error->dimension_error = 1;
+	// 			// free_memory(map);
+	// 			// write(2, "Error\n", 6);
+	// 			// write(2, "Inconsistent map line length\n", 20);
+	// 			// exit(EXIT_FAILURE);
+	// 		}
+	// 	row++;
+	// }
 
 void wall_check(char **map, t_map_count *map_info, t_map_errors *error)
 {

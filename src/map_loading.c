@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 13:51:14 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:14:48 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	map_path_check(char *mappath)
 			ft_printf("%i letters match\n", j + 1);
 		else
 		{
-			//exitfunctionforerrors;
-			return ;
+			ft_putstr_fd("Error\nMap must be a .ber file", 2);
+			exit(EXIT_FAILURE);
 		}
 		j++;
 		i--;
@@ -55,8 +55,11 @@ char *load_map_to_string(char *map_path)
 	res = make_string_from_file(buf, fd);
 	close(fd);
 	free(buf);
+	empty_line_check(res);
 	return (res);
 }
+
+#include <stdio.h>
 
 char *make_string_from_file(char *buf, int fd)
 {
@@ -64,20 +67,25 @@ char *make_string_from_file(char *buf, int fd)
 	char	*res;
 	char	*tmp;
 
-	readchars = 1;
 	res = NULL;
+	readchars = 1;
 	while (readchars > 0)
 	{
 		readchars = read(fd, buf, BUFFER_SIZE);
 		if (readchars == 0)
 			break ;
 		if (readchars < 0)
-			//functiontofreeifthingsbreak;
+			{
+				free(buf);
+				ft_putstr_fd("Error\nRead failure.\n", 2);
+				exit(EXIT_FAILURE);
+			}
 		buf[readchars] = '\0';
     	tmp = ft_strjoin(res, buf);
     	free(res);
     	res = tmp;
 	}
+	ft_printf("string made was:\n%s", res);
 	return (res);
 }
 

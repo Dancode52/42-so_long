@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 10:34:03 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/15 13:43:47 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:00:55 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str = ft_calloc(sizeof(char), i + j + 1);
 	if (str == NULL)
 		return (NULL);
-	ft_memcpy(str, s1, i);
-	ft_memcpy(str + i, s2, j);
+	if (s1)
+		ft_memcpy(str, s1, i);
+	if (s2)
+		ft_memcpy(str + i, s2, j);
 	return (str);
 }
