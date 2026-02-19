@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:51:18 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/17 15:35:36 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:44:32 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,39 @@ void	empty_line_check(char *res)
 
 	i = 0;
 	newline_count = 0;
+	if (!res)
+		return ;
+	// while (res[i])
+	// {
+	// 	while (ft_isprint(res[i]))
+	// 		i++;
+	// 	while (res[i] == '\n')
+	// 	{
+	// 		newline_count++;
+	// 		i++;
+	// 	}
+	// 	if (newline_count > 1 && res[i] != '\0')
+	// 	{
+	// 		free(res);
+	// 		ft_putstr_fd("Error\nEmpty line in map file\n", 2);
+	// 		exit(EXIT_FAILURE);
+	// 	}
+	// 	newline_count = 0;
 	while (res[i])
 	{
 		if (res[i] == '\n')
 			newline_count++;
 		else
 			newline_count = 0;
-		if (newline_count > 1)
+		if (res[0] == '\n' || newline_count > 1)
 			{
-				free(res);
-				ft_putstr_fd("Error\nEmpty line in map file\n", 2);
-				exit(EXIT_FAILURE);
+			free(res);
+			ft_putstr_fd("Error\nEmpty line in map file\n", 2);
+			exit(EXIT_FAILURE);
 			}
 		i++;
 	}
+	//}
 }
 
 size_t	map_height(char **map)

@@ -6,14 +6,28 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:36:21 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/17 15:50:18 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:49:37 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-void	error_check(char **map, t_map_errors *error)
+void	free_map_info(t_map_count *map_info)
 {
+	size_t	i;
+
+	i = 0;
+	while (i < map_info->collect_count)
+	{
+		free(map_info->collect_pos[i]);
+		i++;
+	}
+	free(map_info->collect_pos);
+}
+
+void	error_check(char **map, t_map_errors *error, t_map_count *map_info)
+{
+	(void)map_info;
 	if (error->is_error)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -31,6 +45,7 @@ void	error_check(char **map, t_map_errors *error)
 			ft_putstr_fd("Map is not playable. Player must be able to reach all collectibles and the exit.\n", 2);
 		if (error->emptyline)
 			ft_putstr_fd("Empty line present in map\n", 2);
+		free_map_info(map_info);
 		free_memory(map);
 		exit(EXIT_FAILURE);
 	}

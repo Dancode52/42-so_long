@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/17 15:34:16 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:57:14 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./get_next_line_bonus.h"
 # include <stdlib.h>
 # include <fcntl.h>
+# include <string.h>
 
 typedef struct s_map_count
 {
@@ -47,6 +48,11 @@ typedef struct s_map_errors
 	int	emptyline;
 }	t_map_errors;
 
+// typedef struct s_floodfill_stats
+// {
+// 	int	collectible_hit
+// }
+
 // ---- GEN UTILS
 void	free_memory(char **memory);
 
@@ -75,8 +81,10 @@ void	count_collectible(t_map_count *count, char map_tile);
 void	count_exit(t_map_count *count, char map_tile);
 void	validate_count(t_map_count *count, t_map_errors *error);
 void	validity_check(char **map, t_map_count *map_info);
-void	error_check(char **map, t_map_errors *error);
+//void	error_check(char **map, t_map_errors *error);
+void	error_check(char **map, t_map_errors *error, t_map_count *map_info);
 void	dimension_error(t_map_errors *error);
+void	flood_fill(char **map, t_map_count *map_info, t_map_errors *error);
 //void	validation_error(char *str);
 
 void	printmap(char **map);
