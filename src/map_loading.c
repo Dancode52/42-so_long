@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 14:04:45 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:40:28 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	map_path_check(char *map_path)
 {
-	int	mappathlen;
-	int berlen;
-	char *berfile;
+	int		mappathlen;
+	int		berlen;
+	char	*berfile;
 
 	berfile = ".ber";
 	if (!map_path)
@@ -41,7 +41,7 @@ void	map_path_check(char *map_path)
 	return ;
 }
 
-char *load_map_to_string(char *map_path)
+char	*load_map_to_string(char *map_path)
 {
 	char	*buf;
 	char	*res;
@@ -62,14 +62,11 @@ char *load_map_to_string(char *map_path)
 	res = make_string_from_file(buf, fd);
 	close(fd);
 	free(buf);
-	ft_printf("res = %s\n", res);
 	empty_line_check(res);
 	return (res);
 }
 
-#include <stdio.h>
-
-char *make_string_from_file(char *buf, int fd)
+char	*make_string_from_file(char *buf, int fd)
 {
 	int		readchars;
 	char	*res;
@@ -83,20 +80,20 @@ char *make_string_from_file(char *buf, int fd)
 		if (readchars == 0)
 			break ;
 		if (readchars < 0)
-			{
-				free(buf);
-				ft_putstr_fd("Error\nRead failure.\n", 2);
-				exit(EXIT_FAILURE);
-			}
+		{
+			free(buf);
+			ft_putstr_fd("Error\nRead failure.\n", 2);
+			exit(EXIT_FAILURE);
+		}
 		buf[readchars] = '\0';
-    	tmp = ft_strjoin(res, buf);
-    	free(res);
-    	res = tmp;
+		tmp = ft_strjoin(res, buf);
+		free(res);
+		res = tmp;
 	}
 	return (res);
 }
 
-char **load_map_to_array(char *mapstr)
+char	**load_map_to_array(char *mapstr)
 {
 	char	**maparray;
 
@@ -109,16 +106,13 @@ char **load_map_to_array(char *mapstr)
 	return (maparray);
 }
 
-char **map_loading(char *map_path)
+char	**map_loading(char *map_path)
 {
 	char	*mapstr;
 	char	**map;
 
-//---- check if map path is valid
 	map_path_check(map_path);
-//---- load map to string
 	mapstr = load_map_to_string(map_path);
-//---- load map to array
 	map = load_map_to_array(mapstr);
 	free(mapstr);
 	return (map);

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 14:57:14 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:34:36 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,17 @@ typedef struct s_map_errors
 // 	int	collectible_hit
 // }
 
+// ---- FLOOD FILL
+void	get_filling(char **map, size_t row, size_t col, t_map_count *map_info);
+char	**map_copy(char **map, t_map_count *map_info);
+void	set_start_point(size_t *row, size_t *column, t_map_count *map_info);
+void	is_map_playable(char **copy, t_map_errors *error);
+void	flood_fill(char **map, t_map_count *map_info, t_map_errors *error);
+
 // ---- GEN UTILS
 void	free_memory(char **memory);
+void	free_map_info(t_map_count *map_info);
+void	malloc_fail(char **map);
 
 // ---- MAP CREATION FUNCTIONS
 char	**map_maker(char *map_path, t_map_count *map_info);
@@ -64,6 +73,12 @@ char	*load_map_to_string(char *map_path);
 char	*make_string_from_file(char *buf, int fd);
 char	**load_map_to_array(char *mapstr);
 
+// ---- INFO STORING FOR VALIDATION
+void	store_player(t_map_count *map_info, size_t row, size_t column);
+void	store_exit(t_map_count *map_info, size_t row, size_t column);
+void	store_collect(t_map_count *m_info, size_t row, size_t col, char **map);
+void	store_info(char **map, t_map_count *m_info);
+
 // ---- MAP VALIDATION
 void	empty_line_check(char *res);
 void	input_validity(char **map, t_map_count *map_info, t_map_errors *error);
@@ -71,8 +86,8 @@ void	input_validity(char **map, t_map_count *map_info, t_map_errors *error);
 void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error);
 size_t	map_height(char **map);
 void	wall_check(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_top_bottom_walls(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_left_right_walls(char **map, t_map_count *map_info, t_map_errors *error);
+void	check_top_bot(char **map, t_map_count *map_info, t_map_errors *error);
+void	check_left_rht(char **map, t_map_count *map_info, t_map_errors *error);
 size_t	map_height(char **map);
 void	parameter_check(char **map, t_map_count *map_info, t_map_errors *error);
 void	check_valid_char(char map_tile, t_map_errors *error);
@@ -84,7 +99,6 @@ void	validity_check(char **map, t_map_count *map_info);
 //void	error_check(char **map, t_map_errors *error);
 void	error_check(char **map, t_map_errors *error, t_map_count *map_info);
 void	dimension_error(t_map_errors *error);
-void	flood_fill(char **map, t_map_count *map_info, t_map_errors *error);
 //void	validation_error(char *str);
 
 void	printmap(char **map);

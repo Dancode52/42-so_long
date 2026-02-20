@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:30:29 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 12:33:52 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:39:04 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,15 @@ void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error)
 	}
 	if (map_info->map_width == 3 && map_info->map_height == 3)
 		error->three_by_three = 1;
-	if (error->dimension_error || error->width_error || error->height_error
-			|| error->three_by_three)
+	if (error->dimension_error || error->width_error
+		|| error->height_error || error->three_by_three)
 		error->is_error = 1;
 }
-	// size_t	row;
-	// size_t	len_to_match;
-	// size_t	len;
 
-	// row = 0;
-	// len_to_match = 0;
-	// while (map[row])
-	// {
-	// 	len = ft_strlen(map[row]);
-	// 	if (!len_to_match)
-	// 		len_to_match = len;
-	// 	if (len_to_match != len)
-	// 		{
-	// 			error->dimension_error = 1;
-	// 			// free_memory(map);
-	// 			// write(2, "Error\n", 6);
-	// 			// write(2, "Inconsistent map line length\n", 20);
-	// 			// exit(EXIT_FAILURE);
-	// 		}
-	// 	row++;
-	// }
-
-void wall_check(char **map, t_map_count *map_info, t_map_errors *error)
+void	wall_check(char **map, t_map_count *map_info, t_map_errors *error)
 {
-	check_top_bottom_walls(map, map_info, error);
-	check_left_right_walls(map, map_info, error);
+	check_top_bot(map, map_info, error);
+	check_left_rht(map, map_info, error);
 }
 
 void	parameter_check(char **map, t_map_count *map_info, t_map_errors *error)

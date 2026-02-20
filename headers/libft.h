@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_libft.h                                            :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 10:42:48 by dlanehar          #+#    #+#             */
-/*   Updated: 2025/12/23 13:11:29 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:37:01 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-
-ssize_t		ft_printf(const char *format, ...)__attribute__((format(printf, 1, 2)));
+ssize_t	ft_printf(const char *format, ...)__attribute__((format(printf, 1, 2)));
 
 char	*get_next_line(int fd);
 

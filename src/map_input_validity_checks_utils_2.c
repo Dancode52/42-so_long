@@ -6,13 +6,13 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 10:45:10 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 12:33:06 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:19:14 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-void check_valid_char(char map_tile, t_map_errors *error)
+void	check_valid_char(char map_tile, t_map_errors *error)
 {
 	char	*valid_chars;
 
@@ -24,43 +24,22 @@ void check_valid_char(char map_tile, t_map_errors *error)
 	}
 }
 
-void count_player(t_map_count *map_info, char map_tile)
+void	count_player(t_map_count *map_info, char map_tile)
 {
 	if (map_tile == 'P')
 		map_info->player_count++;
-	// if (p_count != 1)
-	// {
-	// 	free_memory(map);
-	// 	write(2, "Error\n", 6);
-	// 	write(2, "Map must have only one player spawn\n", 36);
-	// 	exit(EXIT_FAILURE);
-	// }
 }
 
 void	count_exit(t_map_count *map_info, char map_tile)
 {
 	if (map_tile == 'E')
 		map_info->exit_count++;
-	// if (e_count != 1)
-	// {
-	// 	free_memory(map);
-	// 	write(2, "Error\n", 6);
-	// 	write(2, "Map must have only one player spawn\n", 36);
-	// 	exit(EXIT_FAILURE);
-	// }
 }
 
 void	count_collectible(t_map_count *map_info, char map_tile)
 {
 	if (map_tile == 'C')
 		map_info->collect_count++;
-	// if (c_count < 1)
-	// {
-	// 	free_memory(map);
-	// 	write(2, "Error\n", 6);
-	// 	write(2, "Map must have only one player spawn\n", 36);
-	// 	exit(EXIT_FAILURE);
-	// }
 }
 
 void	validate_count(t_map_count *map_info, t_map_errors *error)
@@ -81,4 +60,3 @@ void	validate_count(t_map_count *map_info, t_map_errors *error)
 		error->collecible_error = 1;
 	}
 }
-

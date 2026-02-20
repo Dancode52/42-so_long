@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:36:21 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 14:49:37 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:31:35 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	error_check(char **map, t_map_errors *error, t_map_count *map_info)
 	if (error->is_error)
 	{
 		ft_putstr_fd("Error\n", 2);
-		if (error->dimension_error || error->topbot_error || error->leftright_error)
+		if (error->dimension_error || error->topbot_error
+			|| error->leftright_error)
 			dimension_error(error);
 		if (error->player_error)
 			ft_putstr_fd("Map must contain exactly one player spawn\n", 2);
@@ -42,7 +43,7 @@ void	error_check(char **map, t_map_errors *error, t_map_count *map_info)
 		if (error->char_error)
 			ft_putstr_fd("Map must only be made of the following: 01CEP\n", 2);
 		if (error->fill_error)
-			ft_putstr_fd("Map is not playable. Player must be able to reach all collectibles and the exit.\n", 2);
+			ft_putstr_fd("Player cannot reach collectibles or exit.\n", 2);
 		if (error->emptyline)
 			ft_putstr_fd("Empty line present in map\n", 2);
 		free_map_info(map_info);

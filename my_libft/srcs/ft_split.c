@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:54:06 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/16 09:41:57 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:37:42 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static size_t	word_count(const char *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**array;
-	size_t		i;
-	size_t		j;
+	size_t	i;
+	size_t	j;
 
 	if (!s)
 		return (NULL);

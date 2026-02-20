@@ -6,12 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:51:18 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/19 14:44:32 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 11:42:41 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
-#include <stdio.h>
 
 void	empty_line_check(char *res)
 {
@@ -22,22 +21,6 @@ void	empty_line_check(char *res)
 	newline_count = 0;
 	if (!res)
 		return ;
-	// while (res[i])
-	// {
-	// 	while (ft_isprint(res[i]))
-	// 		i++;
-	// 	while (res[i] == '\n')
-	// 	{
-	// 		newline_count++;
-	// 		i++;
-	// 	}
-	// 	if (newline_count > 1 && res[i] != '\0')
-	// 	{
-	// 		free(res);
-	// 		ft_putstr_fd("Error\nEmpty line in map file\n", 2);
-	// 		exit(EXIT_FAILURE);
-	// 	}
-	// 	newline_count = 0;
 	while (res[i])
 	{
 		if (res[i] == '\n')
@@ -45,14 +28,13 @@ void	empty_line_check(char *res)
 		else
 			newline_count = 0;
 		if (res[0] == '\n' || newline_count > 1)
-			{
+		{
 			free(res);
 			ft_putstr_fd("Error\nEmpty line in map file\n", 2);
 			exit(EXIT_FAILURE);
-			}
+		}
 		i++;
 	}
-	//}
 }
 
 size_t	map_height(char **map)
@@ -65,7 +47,7 @@ size_t	map_height(char **map)
 	return (height);
 }
 
-void	check_top_bottom_walls(char **map, t_map_count *map_info, t_map_errors *error)
+void	check_top_bot(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t	row;
 	size_t	column;
@@ -90,19 +72,16 @@ void	check_top_bottom_walls(char **map, t_map_count *map_info, t_map_errors *err
 	}
 }
 
-void	check_left_right_walls(char **map, t_map_count *map_info, t_map_errors *error)
+void	check_left_rht(char **map, t_map_count *map_info, t_map_errors *error)
 {
 	size_t	row;
 	size_t	len;
 
 	(void)map_info;
-	// if (error->dimension_error)
-	// 	return ;
 	row = 0;
 	while (map[row])
 	{
 		len = ft_strlen(map[row]);
-		printf("len = %zu\n", len);
 		if (len == 0)
 		{
 			error->is_error = 1;
@@ -117,8 +96,4 @@ void	check_left_right_walls(char **map, t_map_count *map_info, t_map_errors *err
 		}
 		row++;
 	}
-	printmap(map);
 }
-
-
-
