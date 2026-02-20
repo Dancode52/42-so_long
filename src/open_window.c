@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   open_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 17:58:24 by dlanehar         ###   ########.fr       */
+/*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
+/*   Updated: 2026/02/20 17:28:37 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-int	main(int argc, char **argv)
+int	gameshit(void)
 {
-	char		**map;
-	t_map_count	map_info;
+	mlx_context mlx;
+	mlx_window_create_info info;
+	mlx_window window;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nPlease provide a map.\n", 2);
-		return (0);
-	}
-	map = map_maker(argv[1], &map_info);
-	ft_printf("hello");
-	int i = gameshit();
-	ft_printf("%i\n", i);
-	if (!map)
-		return (0);
-	free_memory(map);
-	free_map_info(&map_info);
+	mlx = mlx_init();
+	info.height = 500;
+	info.width = 500;
+	info.title = "how_long";
+	window = mlx_new_window(mlx, &info);
+	mlx_loop(mlx);
+
+	mlx_destroy_window(mlx, window);
+	mlx_destroy_context(mlx);
+
+	free(mlx);
+	return (1);
 }

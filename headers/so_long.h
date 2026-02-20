@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 11:34:36 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:19:07 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SO_LONG_H
 # include "./libft.h"
 # include "./get_next_line_bonus.h"
+# include "./mlx.h"
+# include "./mlx_extended.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
@@ -100,6 +102,9 @@ void	validity_check(char **map, t_map_count *map_info);
 void	error_check(char **map, t_map_errors *error, t_map_count *map_info);
 void	dimension_error(t_map_errors *error);
 //void	validation_error(char *str);
+
+// ---- OPEN GAME STUFF
+int		gameshit(void);
 
 void	printmap(char **map);
 #endif
