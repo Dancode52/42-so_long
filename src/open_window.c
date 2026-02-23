@@ -6,77 +6,114 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/23 17:28:25 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:19:40 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-void	close_game(int key, void *mlx)
-{
-	if (key == 41)
-		mlx_loop_end((mlx_context)mlx);
-}
+// void	close_game(int key, void *mlx)
+// {
+// 	if (key == 41)
+// 		mlx_loop_end((mlx_context)mlx);
+// }
 
-void	window_close(int event, void *mlx)
-{
-	(void)mlx;
-	if (event == 0)
-		mlx_loop_end((mlx_context)mlx);
-}
+// void	window_close(int event, void *mlx)
+// {
+// 	(void)mlx;
+// 	if (event == 0)
+// 		mlx_loop_end((mlx_context)mlx);
+// }
 
-typedef struct
-{
-    mlx_context mlx;
-    mlx_window win;
-} mlx_t;
+// typedef struct
+// {
+//     mlx_context mlx;
+//     mlx_window win;
+// } mlx_t;
 
-void update(void* param)
-{
-    static int i = 0;
-    mlx_t* mlx = (mlx_t*)param;
+// void update(void* param)
+// {
+//     static int i = 0;
+//     mlx_t* mlx = (mlx_t*)param;
 
-    int color = 0;
-    for(int j = 0; i < 400; j++)
+//     int color = 0;
+//     for(int j = 0; i < 400; j++)
+//     {
+//         mlx_pixel_put(mlx->mlx, mlx->win, j, j, (mlx_color){ .rgba = 0xFF0000FF + (color << 8) });
+//         mlx_pixel_put(mlx->mlx, mlx->win, 399 - j, j, (mlx_color){ .rgba = 0xFF0000FF });
+//         color += (color < 255);
+//     }
+//     if(++i == 5000)
+//     {
+//         // here the rendering changes, the red put pixels
+//         // we made in the main loop are erased
+//         mlx_clear_window(mlx->mlx, mlx->win, (mlx_color){ .rgba = 0x000000FF });
+//     }
+// }
+
+int	gameshit(char **map, t_map_count map_info)
+{
+	mlx_context mlx;
+	mlx_window win;
+	mlx_window_create_info win_info = { 0 };
+	mlx_image image;
+	mlx_image image1;
+
+
+	mlx = mlx_init();
+	win_info.title = "Test_window";
+	win_info.height = 32 * map_info.map_height;
+	win_info.width = 32 * map_info.map_width;
+	win = mlx_new_window(mlx, &win_info);
+
+	mlx_set_fps_goal(mlx, 30);
+	int imgw;
+	int imgh;
+	image = mlx_new_image_from_file(mlx, "textures/crate.png", &imgw, &imgh);
+
+	int imgw1;
+	int imgh1;
+	image1 = mlx_new_image_from_file(mlx, "textures/lilfella.png", &imgw1, &imgh1);
+
+    mlx_color pixels[40 * 40] = { 0 };
+	mlx_color jpixels[40 * 40] = { 0 };
+    int i = 0;
+    for(int y = 0; y < 40; y++)
     {
-        mlx_pixel_put(mlx->mlx, mlx->win, j, j, (mlx_color){ .rgba = 0xFF0000FF + (color << 8) });
-        mlx_pixel_put(mlx->mlx, mlx->win, 399 - j, j, (mlx_color){ .rgba = 0xFF0000FF });
-        color += (color < 255);
+        for(int x = 0; x < 40; x++, i++)
+            pixels[i].rgba = 0xFF0000FF;
     }
-    if(++i == 5000)
+	int j = 0;
+    for(int y1 = 0; y1 < 40; y1++)
     {
-        // here the rendering changes, the red put pixels
-        // we made in the main loop are erased
-        mlx_clear_window(mlx->mlx, mlx->win, (mlx_color){ .rgba = 0x000000FF });
-    }
-}
-
-int	gameshit(void)
-{
-    mlx_t mlx;
-
-    mlx.mlx = mlx_init();
-
-    mlx_window_create_info info = { 0 };
-    info.title = "Hello World!";
-    info.width = 400;
-    info.height = 400;
-    mlx.win = mlx_new_window(mlx.mlx, &info);
-
-    for(int i = 0; i < 100; i++)
-    {
-        for(int j = 0; j < 100; j++)
-        {
-            // this will be rendered until we call `mlx_clear_window`
-            mlx_pixel_put(mlx.mlx, mlx.win, i, j, (mlx_color){ .rgba = 0xFF0000FF });
-        }
+        for(int x1 = 0; x1 < 40; x1++, j++)
+            jpixels[j].rgba = 0x00FF00FF;
     }
 
-    mlx_add_loop_hook(mlx.mlx, update, &mlx);
-    mlx_loop(mlx.mlx);
+	int t = 0;
+	while (t < 7)
+	{
+		int tt = 0;
+		while (tt < 19)
+		{
+			if (map[t][tt] == '1')
+    			mlx_pixel_put_region(mlx, win, tt * 32, t *32, 32, 32, pixels); // Will put a square of 40x40 pixels at 100:100
+			if (map[t][tt] == 'C')
+				mlx_pixel_put_region(mlx, win, tt * 32, t *32, 32, 32, jpixels);
+			if (map[t][tt] == 'E')
+				mlx_put_image_to_window(mlx, win, image, tt * 32, t * 32);
+			if (map[t][tt] == 'P')
+				mlx_put_image_to_window(mlx, win, image1, tt * 32, t * 32);
+			tt++;
+		}
+		t++;
+	}
 
-    mlx_destroy_window(mlx.mlx, mlx.win);
-    mlx_destroy_context(mlx.mlx);
+    mlx_loop(mlx);
+
+	mlx_destroy_image(mlx, image);
+    mlx_destroy_window(mlx, win);
+    mlx_destroy_context(mlx);
 	return (0);
 }
     // mlx_context mlx = mlx_init();

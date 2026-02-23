@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 17:19:07 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/23 18:03:04 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	dimension_error(t_map_errors *error);
 //void	validation_error(char *str);
 
 // ---- OPEN GAME STUFF
-int		gameshit(void);
+int		gameshit(char **map, t_map_count map_info);
 
 void	printmap(char **map);
 #endif
