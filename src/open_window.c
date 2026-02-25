@@ -16,11 +16,11 @@
 
 typedef struct s_colours
 {
-	mlx_color	p_colour[32 * 32];
-	mlx_color	wall_colour[32 * 32];
-	mlx_color	c_colour[32 * 32];
-	mlx_color	e_colour[32 * 32];
-	mlx_color	open_e_colour[32 * 32];
+	mlx_color	p_colour[64 * 64];
+	mlx_color	wall_colour[64 * 64];
+	mlx_color	c_colour[64 * 64];
+	mlx_color	e_colour[64 * 64];
+	mlx_color	open_e_colour[64 * 64];
 }	t_colours;
 
 typedef struct s_mlx_and_stuff
@@ -39,6 +39,11 @@ typedef struct s_mlx_and_stuff
 	mlx_image	img_blwall;
 	mlx_image	img_brwall;
 	mlx_image	img_1wall;
+	mlx_image	img_floor;
+	mlx_image	img_p_down;
+	mlx_image	img_p_up;
+	mlx_image	img_p_left;
+	mlx_image	img_p_right;
 	t_map_count map_info;
 	t_colours colours;
 	size_t	step_count;
@@ -314,58 +319,88 @@ void	exit_event(int key, void *param)
 
 #include <stdio.h>
 
+// void	move_right(int key, void *param)
+// {
+// 	t_mlx_and_stuff *mlx = (t_mlx_and_stuff *)param;
+// 	printf("player pos[0] %zu\nplayer pos[1] %zu\n",mlx->map_info.player_pos[0], mlx->map_info.player_pos[1]);
+// 	if (key == 7 || key == 79)
+// 	{
+// 		ft_printf("pressed\n");
+// 		if (mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1] + 1] == '1')
+// 		{
+// 			ft_printf("Wall!\n");
+// 			return ;
+// 		}
+// 		mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]] = '0';
+// 		mlx->map_info.player_pos[1] += 1;
+// 		mlx->step_count += 1;
+// 		mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]] = 'P';
+// 		printf("Step count: %zu\n", mlx->step_count);
+// 		mlx_pixel_put_region(mlx->mlx, mlx->win,
+// 		 mlx->map_info.player_pos[0] * 64,
+// 		 mlx->map_info.player_pos[1] * 64, 64, 64, mlx->colours.p_colour);
+// 	}
+// 	printf("Next tile: %c\n",
+// 	mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]]);
+// 	mlx_clear_window(mlx->mlx, mlx->win, (mlx_color){ .rgba = 0x000000FF });
+// 	draw_map(mlx->map, *mlx);
+// }
+
 void	move_right(int key, void *param)
 {
 	t_mlx_and_stuff *mlx = (t_mlx_and_stuff *)param;
-	printf("player pos[0] %zu\nplayer pos[1] %zu\n",mlx->map_info.player_pos[0], mlx->map_info.player_pos[1]);
+	size_t	current_pos;
+
+	current_pos = mlx->map_info.player_pos[1];
+	printf("player pos[0] %zu\nplayer pos[1] %zu\n",mlx->map_info.player_pos[0], current_pos);
 	if (key == 7 || key == 79)
 	{
 		ft_printf("pressed\n");
-		if (mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1] + 1] == '1')
+		if (mlx->map[mlx->map_info.player_pos[0]][current_pos + 1] == '1')
 		{
 			ft_printf("Wall!\n");
 			return ;
 		}
-		mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]] = '0';
-		mlx->map_info.player_pos[1] += 1;
+		//mlx_put_image_to_window(mlx.mlx, mlx.win, mlx->img_floor)
+		mlx->map[mlx->map_info.player_pos[0]][current_pos] = '0';
+	//	current_pos += 1;
 		mlx->step_count += 1;
-		mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]] = 'P';
+		mlx->map[mlx->map_info.player_pos[0]][current_pos + 1] = 'P';
 		printf("Step count: %zu\n", mlx->step_count);
-		mlx_pixel_put_region(mlx->mlx, mlx->win,
-		 mlx->map_info.player_pos[0] * 32,
-		 mlx->map_info.player_pos[1] *32, 32, 32, mlx->colours.p_colour);
+		mlx_put_transformed_image_to_window(mlx->mlx, mlx->win, mlx->img_floor, current_pos * 64, mlx->map_info.player_pos[0] * 64, 4, 4, 0);
+		mlx_put_transformed_image_to_window(mlx->mlx, mlx->win, mlx->img_p_right, (current_pos + 1) * 64, mlx->map_info.player_pos[0] * 64, 4, 4, 0);
+	//	mlx_pixel_put_region(mlx->mlx, mlx->win,
+	//	 mlx->map_info.player_pos[1] * 64,
+	//	 mlx->map_info.player_pos[0] * 64, 64, 64, mlx->colours.p_colour);
 	}
-	printf("Next tile: %c\n",
-	mlx->map[mlx->map_info.player_pos[0]][mlx->map_info.player_pos[1]]);
-	mlx_clear_window(mlx->mlx, mlx->win, (mlx_color){ .rgba = 0x000000FF });
-	draw_map(mlx->map, *mlx);
+	//draw_map(mlx->map, *mlx);
 }
 
 void	draw_l_r_walls(char **map, t_mlx_and_stuff t_mlx, size_t row, size_t column)
 {
 	(void)map;
 	if (column == 0)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_lwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_lwall, column * 64, row * 64, 4, 4, 0);
 	if (column == t_mlx.map_info.map_width - 1)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_rwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_rwall, column * 64, row * 64, 4, 4, 0);
 }
 
 void	draw_t_l_r_walls(char **map, t_mlx_and_stuff t_mlx, size_t row, size_t column)
 {
 	(void)map;
 	if (column == 0)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_tlwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_tlwall, column * 64, row * 64, 4, 4, 0);
 	if (column == t_mlx.map_info.map_width - 1)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_trwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_trwall, column * 64, row * 64, 4, 4, 0);
 }
 
 void	draw_b_l_r_walls(char **map, t_mlx_and_stuff t_mlx, size_t row, size_t column)
 {
 	(void)map;
 	if (column == 0)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_blwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_blwall, column * 64, row * 64, 4, 4, 0);
 	if (column == t_mlx.map_info.map_width - 1)
-		mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_brwall, column * 32, row * 32);
+		mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_brwall, column * 64, row * 64, 4, 4, 0);
 }
 
 void	draw_map(char **map, t_mlx_and_stuff t_mlx)
@@ -383,16 +418,17 @@ void	draw_map(char **map, t_mlx_and_stuff t_mlx)
 			if (row == t_mlx.map_info.map_height - 1 && (column == 0 || column == t_mlx.map_info.map_width - 1))
 				draw_b_l_r_walls(map, t_mlx, row, column);
 			if ((column > 0 && column < t_mlx.map_info.map_width - 1) && map[row][column] == '1')
-    			mlx_put_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_1wall, column * 32, row * 32);
+    			mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_1wall, column * 64, row * 64, 4, 4, 0);
+			if (map[row][column] == '0')
+				mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_floor, column * 64, row * 64, 4, 4, 0);
 			if (map[row][column] == 'C')
-				mlx_pixel_put_region(t_mlx.mlx, t_mlx.win, column * 32,
-				 row *32, 32, 32, t_mlx.colours.c_colour);
+				mlx_pixel_put_region(t_mlx.mlx, t_mlx.win, column * 64,
+				 row *64, 64, 64, t_mlx.colours.c_colour);
 			if (map[row][column] == 'E')
-				mlx_pixel_put_region(t_mlx.mlx, t_mlx.win, column * 32,
-				 row *32, 32, 32, t_mlx.colours.e_colour);
+				mlx_pixel_put_region(t_mlx.mlx, t_mlx.win, column * 64,
+				 row *64, 64, 64, t_mlx.colours.e_colour);
 			if (map[row][column] == 'P')
-				mlx_pixel_put_region(t_mlx.mlx, t_mlx.win, column * 32,
-				 row *32, 32, 32, t_mlx.colours.p_colour);
+				mlx_put_transformed_image_to_window(t_mlx.mlx, t_mlx.win, t_mlx.img_p_left, column * 64, row * 64, 4, 4, 0);
 			column++;
 		}
 		row++;
@@ -434,19 +470,69 @@ void	destroy_all_image(t_mlx_and_stuff t_mlx)
 	mlx_destroy_image(t_mlx.mlx, t_mlx.img_rwall);
 	mlx_destroy_image(t_mlx.mlx, t_mlx.img_twall);
 	mlx_destroy_image(t_mlx.mlx, t_mlx.img_bwall);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_1wall);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_floor);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_p_down);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_p_up);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_p_right);
+	mlx_destroy_image(t_mlx.mlx, t_mlx.img_p_left);
 }
+//transparency test
+char **arraycopy(char **map)
+{
+	int len;
+	int height;
+	char **dup;
+
+	height = 0;
+	len = ft_strlen(map[0]);
+	while (map[height])
+		height++;
+	dup = ft_calloc(height + 1, sizeof(char *));
+	height = 0;
+	while (map[height])
+	{
+		dup[height] = ft_strdup(map[height]);
+		height++;
+	}
+	return (dup);
+}
+void make0(char **dup)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (dup[i])
+	{
+		j = 0;
+		while (dup[i][j])
+		{
+			if (dup[i][j] == 'P' || dup[i][j] ==  'E' || dup[i][j] ==  'C')
+				dup[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+//end transparency test
 
 int	gameshit(char **map, t_map_count map_info)
 {
 	t_mlx_and_stuff t_mlx;
+	char **map1; //transparency test
+
+	map1 = arraycopy(map);
+	make0(map1);
 	t_mlx.map_info = map_info;
 	t_mlx.mlx = mlx_init();
 	t_mlx.map = map;
 
+
 	ft_bzero(&t_mlx.win_info, sizeof(mlx_window_create_info));
 	t_mlx.win_info.title = "Test_window";
-	t_mlx.win_info.height = 32 * map_info.map_height;
-	t_mlx.win_info.width = 32 * map_info.map_width;
+	t_mlx.win_info.height = 64 * map_info.map_height;
+	t_mlx.win_info.width = 64 * map_info.map_width;
 	t_mlx.step_count = 0;
 	t_mlx.img_width = 0;
 	t_mlx.img_height = 0;
@@ -459,6 +545,11 @@ int	gameshit(char **map, t_map_count map_info)
 	t_mlx.img_blwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/bottomleft.png", &t_mlx.img_width, &t_mlx.img_height);
 	t_mlx.img_brwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/bottomright.png", &t_mlx.img_width, &t_mlx.img_height);
 	t_mlx.img_1wall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/1wall.png", &t_mlx.img_width, &t_mlx.img_height);
+	t_mlx.img_floor = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/16_16.png", &t_mlx.img_width, &t_mlx.img_height);
+	t_mlx.img_p_down = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusdown.png", &t_mlx.img_width, &t_mlx.img_height);
+	t_mlx.img_p_up = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusup.png", &t_mlx.img_width, &t_mlx.img_height);
+	t_mlx.img_p_left = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusleft.png", &t_mlx.img_width, &t_mlx.img_height);
+	t_mlx.img_p_right = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusright.png", &t_mlx.img_width, &t_mlx.img_height);
 
 	t_mlx.win = mlx_new_window(t_mlx.mlx, &t_mlx.win_info);
 
@@ -467,16 +558,16 @@ int	gameshit(char **map, t_map_count map_info)
 	ft_bzero(&t_mlx.colours, sizeof(t_colours));
 
 	int i = 0;
-	while (i < (32 * 32))
+	while (i < (64 * 64))
 		t_mlx.colours.p_colour[i++].rgba = 0x0000FFFF;
 	i = 0;
-	while (i < (32 * 32))
+	while (i < (64 * 64))
 		t_mlx.colours.c_colour[i++].rgba = 0xf9d624FF;
 	i = 0;
-	while (i < (32 * 32))
+	while (i < (64 * 64))
 		t_mlx.colours.wall_colour[i++].rgba = 0xFF0000FF;
 	i = 0;
-	while (i < (32 * 32))
+	while (i < (64 * 64))
 		t_mlx.colours.e_colour[i++].rgba = 0xa76a22FF;
 	i = 0;
 
@@ -485,6 +576,8 @@ int	gameshit(char **map, t_map_count map_info)
 	mlx_on_event(t_mlx.mlx, t_mlx.win, MLX_KEYDOWN, exit_event, t_mlx.mlx);
 	mlx_on_event(t_mlx.mlx, t_mlx.win, MLX_WINDOW_EVENT, exit_event, t_mlx.mlx);
 
+	printmap(map1);
+	draw_map(map1, t_mlx);
 	draw_map(map, t_mlx);
     mlx_loop(t_mlx.mlx);
 
@@ -492,5 +585,6 @@ int	gameshit(char **map, t_map_count map_info)
 	// mlx_destroy_image(t_mlx.mlx, t_mlx.img);
     mlx_destroy_window(t_mlx.mlx, t_mlx.win);
     mlx_destroy_context(t_mlx.mlx);
+	free_memory(map1);
 	return (0);
 }
