@@ -30,6 +30,7 @@ typedef struct s_mlx_and_stuff
 	mlx_window win;
 	int img_width;
 	int img_height;
+	size_t		tile_side_px;
 	mlx_image	img_lwall;
 	mlx_image	img_rwall;
 	mlx_image	img_twall;
@@ -515,6 +516,78 @@ void make0(char **dup)
 		i++;
 	}
 }
+
+void	t_mlx_base_init(t_mlx_and_stuff *t_mlx, char **map, t_map_count m_inf)
+{
+	ft_bzero(t_mlx, sizeof(t_mlx_and_stuff));
+	t_mlx->map_info = m_inf;
+	t_mlx->mlx = mlx_init();
+	t_mlx->map = map;
+	t_mlx->tile_side_px = 64;
+}
+
+
+void	t_mlx_win_init(t_mlx_and_stuff *t_mlx)
+{
+	t_mlx->win_info.title = "so_long";
+	t_mlx->win_info.height = t_mlx->tile_side_px * t_mlx->map_info.map_height;
+	t_mlx->win_info.width = t_mlx->tile_side_px * t_mlx->map_info.map_width;
+	t_mlx->win = mlx_new_window(t_mlx->mlx, &t_mlx->win_info);
+}
+
+
+// ---- add fail for no texture
+void	image_ground_init(t_mlx_and_stuff *t_mlx)
+{
+	t_mlx->img_lwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/leftwall.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_rwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/rightwall.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_twall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/topwall.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_bwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/bottomwall.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_tlwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/topleft.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_trwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/topright.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_blwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/bottomleft.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_brwall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/bottomright.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_1wall = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/1wall.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_floor = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/16_16.png", &t_mlx->img_width, &t_mlx->img_height);
+}
+
+// ---- add fail for no texture
+void	image_player_init(t_mlx_and_stuff *t_mlx)
+{
+	t_mlx->img_p_down = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/krobusdown.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_p_up = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/krobusup.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_p_left = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/krobusleft.png", &t_mlx->img_width, &t_mlx->img_height);
+	t_mlx->img_p_right = mlx_new_image_from_file(t_mlx->mlx,
+	 "textures/stardew/krobusright.png", &t_mlx->img_width, &t_mlx->img_height);
+}
+
+void	t_mlx_image_init(t_mlx_and_stuff *t_mlx)
+{
+	image_ground_init(t_mlx);
+	image_player_init(t_mlx);
+}
+
+void	t_mlx_init(t_mlx_and_stuff *t_mlx, char **map, t_map_count m_inf)
+{
+	t_mlx_base_init(t_mlx, map, m_inf);
+	t_mlx_win_init(t_mlx);
+	t_mlx_image_init(t_mlx);
+
+
+}
 //end transparency test
 
 int	gameshit(char **map, t_map_count map_info)
@@ -522,36 +595,37 @@ int	gameshit(char **map, t_map_count map_info)
 	t_mlx_and_stuff t_mlx;
 	char **map1; //transparency test
 
+	t_mlx_init(&t_mlx, map, map_info);
 	map1 = arraycopy(map);
 	make0(map1);
-	t_mlx.map_info = map_info;
-	t_mlx.mlx = mlx_init();
-	t_mlx.map = map;
+	// t_mlx.map_info = map_info;
+	// t_mlx.mlx = mlx_init();
+	// t_mlx.map = map;
 
 
 	ft_bzero(&t_mlx.win_info, sizeof(mlx_window_create_info));
-	t_mlx.win_info.title = "Test_window";
-	t_mlx.win_info.height = 64 * map_info.map_height;
-	t_mlx.win_info.width = 64 * map_info.map_width;
-	t_mlx.step_count = 0;
-	t_mlx.img_width = 0;
-	t_mlx.img_height = 0;
-	t_mlx.img_lwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/leftwall.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_rwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/rightwall.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_twall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/topwall.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_bwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/bottomwall.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_tlwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/topleft.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_trwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/topright.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_blwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/bottomleft.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_brwall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/bottomright.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_1wall = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/1wall.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_floor = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/16_16.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_p_down = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusdown.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_p_up = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusup.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_p_left = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusleft.png", &t_mlx.img_width, &t_mlx.img_height);
-	t_mlx.img_p_right = mlx_new_image_from_file(t_mlx.mlx, "textures/example/tiles/walls/krobusright.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.win_info.title = "Test_window";
+	// t_mlx.win_info.height = 64 * map_info.map_height;
+	// t_mlx.win_info.width = 64 * map_info.map_width;
+	// t_mlx.step_count = 0;
+	// t_mlx.img_width = 0;
+	// t_mlx.img_height = 0;
+	// t_mlx.img_lwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/leftwall.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_rwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/rightwall.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_twall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/topwall.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_bwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/bottomwall.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_tlwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/topleft.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_trwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/topright.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_blwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/bottomleft.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_brwall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/bottomright.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_1wall = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/1wall.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_floor = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/16_16.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_p_down = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/krobusdown.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_p_up = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/krobusup.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_p_left = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/krobusleft.png", &t_mlx.img_width, &t_mlx.img_height);
+	// t_mlx.img_p_right = mlx_new_image_from_file(t_mlx.mlx, "textures/stardew/krobusright.png", &t_mlx.img_width, &t_mlx.img_height);
 
-	t_mlx.win = mlx_new_window(t_mlx.mlx, &t_mlx.win_info);
+	//t_mlx.win = mlx_new_window(t_mlx.mlx, &t_mlx.win_info);
 
 	mlx_set_fps_goal(t_mlx.mlx, 30);
 
