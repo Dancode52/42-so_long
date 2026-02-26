@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/23 18:03:04 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:34:10 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,43 @@ typedef struct s_map_errors
 	int	fill_error;
 	int	emptyline;
 }	t_map_errors;
+
+typedef struct s_colours
+{
+	mlx_color	p_colour[64 * 64];
+	mlx_color	wall_colour[64 * 64];
+	mlx_color	c_colour[64 * 64];
+	mlx_color	e_colour[64 * 64];
+	mlx_color	open_e_colour[64 * 64];
+}	t_colours;
+
+typedef struct s_game_state
+{
+	mlx_context mlx;
+	mlx_window_create_info win_info;
+	mlx_window win;
+	int img_width;
+	int img_height;
+	size_t		tile_side_px;
+	mlx_image	img_lwall;
+	mlx_image	img_rwall;
+	mlx_image	img_twall;
+	mlx_image	img_bwall;
+	mlx_image	img_tlwall;
+	mlx_image	img_trwall;
+	mlx_image	img_blwall;
+	mlx_image	img_brwall;
+	mlx_image	img_1wall;
+	mlx_image	img_floor;
+	mlx_image	img_p_down;
+	mlx_image	img_p_up;
+	mlx_image	img_p_left;
+	mlx_image	img_p_right;
+	t_map_count map_info;
+	t_colours colours;
+	size_t	step_count;
+	char **map;
+} t_game_state;
 
 // typedef struct s_floodfill_stats
 // {
@@ -104,7 +141,14 @@ void	dimension_error(t_map_errors *error);
 //void	validation_error(char *str);
 
 // ---- OPEN GAME STUFF
-int		gameshit(char **map, t_map_count map_info);
+int		run_game(char **map, t_map_count map_info);
+
+// ---- MLX INIT FUNCS
+void	game_init(t_game_state *game, char **map, t_map_count m_inf);
+void	game_image_player_init(t_game_state *game);
+void	game_image_ground_init(t_game_state *game);
+void	game_win_init(t_game_state *game);
+void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
 
 void	printmap(char **map);
 #endif
