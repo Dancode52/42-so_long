@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/24 13:16:34 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:25:16 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	}
 	map = map_maker(argv[1], &map_info);
 	ft_printf("hello");
-	int i = gameshit(map, map_info);
+	int i = run_game(map, map_info);
 	ft_printf("%i\n", i);
 	if (!map)
 		return (0);

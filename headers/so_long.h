@@ -6,11 +6,10 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/26 09:34:10 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/26 16:22:32 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
 # define SO_LONG_H
 # include "./libft.h"
 # include "./get_next_line_bonus.h"
@@ -61,31 +60,39 @@ typedef struct s_colours
 
 typedef struct s_game_state
 {
-	mlx_context mlx;
-	mlx_window_create_info win_info;
-	mlx_window win;
-	int img_width;
-	int img_height;
-	size_t		tile_side_px;
-	mlx_image	img_lwall;
-	mlx_image	img_rwall;
-	mlx_image	img_twall;
-	mlx_image	img_bwall;
-	mlx_image	img_tlwall;
-	mlx_image	img_trwall;
-	mlx_image	img_blwall;
-	mlx_image	img_brwall;
-	mlx_image	img_1wall;
-	mlx_image	img_floor;
-	mlx_image	img_p_down;
-	mlx_image	img_p_up;
-	mlx_image	img_p_left;
-	mlx_image	img_p_right;
-	t_map_count map_info;
-	t_colours colours;
-	size_t	step_count;
-	char **map;
-} t_game_state;
+// ---- MLX ----
+	mlx_context				mlx;
+
+// ---- WINDOW VARS ----
+	mlx_window_create_info	win_info;
+	mlx_window				win;
+	int						img_w;
+	int						img_h;
+
+// ---- TEXTURE VARS ----
+	size_t					tile_size_px;
+	mlx_image				img_lwall;
+	mlx_image				img_rwall;
+	mlx_image				img_twall;
+	mlx_image				img_bwall;
+	mlx_image				img_tlwall;
+	mlx_image				img_trwall;
+	mlx_image				img_blwall;
+	mlx_image				img_brwall;
+	mlx_image				img_1wall;
+	mlx_image				img_floor;
+	mlx_image				img_p_down;
+	mlx_image				img_p_up;
+	mlx_image				img_p_left;
+	mlx_image				img_p_right;
+	t_map_count				map_info;
+	t_colours				colours;
+
+// ---- PLAYER STATS ----
+	size_t					step_count;
+// ---- MAP ----
+	char					**map;
+}	t_game_state;
 
 // typedef struct s_floodfill_stats
 // {
