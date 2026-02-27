@@ -6,10 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/26 16:22:32 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:11:52 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SO_LONG_H
 # define SO_LONG_H
 # include "./libft.h"
 # include "./get_next_line_bonus.h"
