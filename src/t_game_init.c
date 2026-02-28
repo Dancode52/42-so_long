@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
+#include <stdio.h>
 
 void	game_init(t_game_state *game, char **map, t_map_count m_inf)
 {
@@ -18,6 +19,9 @@ void	game_init(t_game_state *game, char **map, t_map_count m_inf)
 	game_win_init(game);
 	game_image_ground_init(game);
 	game_image_player_init(game);
+	printf("in game init\n");
+	printf("game ptr = %p\n", (void *)(game));
+	printf("map  ptr = %p\n", (void *)game->map);
 }
 
 // ---- add fail for no texture

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/28 00:18:04 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:16:07 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,51 @@ void	exit_event(int key, void *param)
 
 #include <stdio.h>
 
-void	move_right(int key, void *param)
+void	move_player(int key, void *param)
 {
 	t_game_state *game = (t_game_state *)param;
-	size_t	current_pos;
+	size_t	column;
+	size_t	row;
 
-	current_pos = game->map_info.player_pos[1];
-	printf("player pos[0] %zu\nplayer pos[1] %zu\n",game->map_info.player_pos[0], current_pos);
+	column = game->map_info.player_pos[1];
+	row = game->map_info.player_pos[0];
+	printf("row = %zu col = %zu\n", row, column);
+	printf("game ptr = %p\n", (void *)game);
+	printf("map  ptr = %p\n", (void *)game->map);
 	if (key == 7 || key == 79)
 	{
-		ft_printf("pressed\n");
-		if (game->map[game->map_info.player_pos[0]][current_pos + 1] == '1')
-		{
-			ft_printf("Wall!\n");
+		game->player_dir = P_RIGHT;
+		if (column + 1 >= game->map_info.map_width)
 			return ;
-		}
-		//mlx_put_image_to_window(mlx.mlx, mlx.win, mlx->img_floor)
-		game->map[game->map_info.player_pos[0]][current_pos] = '0';
-	//	current_pos += 1;
-		game->step_count += 1;
-		game->map[game->map_info.player_pos[0]][current_pos + 1] = 'P';
-
-		printf("Step count: %zu\n", game->step_count);
-		mlx_put_transformed_image_to_window(game->mlx, game->win, game->img_floor, current_pos * game->tile_size_px, game->map_info.player_pos[0] * game->tile_size_px, 4, 4, 0);
-		mlx_put_transformed_image_to_window(game->mlx, game->win, game->img_p_right, (current_pos + 1) * game->tile_size_px, game->map_info.player_pos[0] * game->tile_size_px - 32, 4, 4, 0);
-	//	mlx_pixel_put_region(mlx->mlx, mlx->win,
-	//	 mlx->map_info.player_pos[1] * game.tile_size_px,
-	//	 mlx->map_info.player_pos[0] * game.tile_size_px, game.tile_size_px, game.tile_size_px, mlx->colours.p_colour);
+		if (game->map[row][column + 1] == '1')
+			return ;
+		game->map_info.player_pos[1] += 1;
 	}
-	//draw_map(mlx->map, *mlx);
-	game->map_info.player_pos[1]++;
+	if (key == 4 || key == 80)
+	{
+		game->player_dir = P_LEFT;
+		if (game->map[row][column - 1] == '1')
+			return ;
+		game->map_info.player_pos[1] -= 1;
+	}
+	if (key == 26 || key == 82)
+	{
+		game->player_dir = P_UP;
+		if (game->map[row - 1][column] == '1')
+			return ;
+		game->map_info.player_pos[0] -= 1;
+	}
+	if (key == 22 || key == 81)
+	{
+		game->player_dir = P_DOWN;
+		if (game->map[row + 1][column] == '1')
+			return ;
+		game->map_info.player_pos[0] += 1;
+	}
+	game->step_count++;
+	printf("step count is %zu\n", game->step_count);
+	mlx_clear_window(game->mlx, game->win, (mlx_color){ .rgba = 0x000000FF });
+	draw_map(game->map, *game);
 }
 
 void	draw_l_r_walls(char **map, t_game_state game, size_t row, size_t column)
@@ -85,10 +100,30 @@ void	draw_player(t_game_state game)
 {
 	size_t row;
 	size_t column;
+	// mlx_image	sprite;
 
+	// sprite = game.img_p_down;
 	row = game.map_info.player_pos[0];
 	column = game.map_info.player_pos[1];
+	// if (game.player_dir == P_RIGHT)
+	// 	sprite = game.img_p_right;
+	// if (game.player_dir == P_LEFT)
+	// 	sprite = game.img_p_left;
+	// if (game.player_dir == P_UP)
+	// 	sprite = game.img_p_up;
+	// if (game.player_dir == P_DOWN)
+	// 	sprite = game.img_p_down;
+
 	mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_p_left, column * game.tile_size_px, row * game.tile_size_px - 32, 4, 4, 0);
+}
+
+void draw_t_b_walls(char **map, t_game_state game, size_t row, size_t column)
+{
+	(void)map;
+	if (row == 0)
+		mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_twall, column * game.tile_size_px, row * game.tile_size_px, 4, 4, 0);
+	if (row == game.map_info.map_height - 1)
+		mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_bwall, column * game.tile_size_px, row * game.tile_size_px, 4, 4, 0);
 }
 
 void	draw_map(char **map, t_game_state game)
@@ -102,27 +137,26 @@ void	draw_map(char **map, t_game_state game)
 			mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_floor, column * game.tile_size_px, row * game.tile_size_px, 4, 4, 0);
 			if (row == 0 && (column == 0 || column == game.map_info.map_width - 1))
 				draw_t_l_r_walls(map, game, row, column);
-			if ((row > 0 && row < game.map_info.map_height) && (column == 0 || column == game.map_info.map_width - 1))
+			if ((row > 0 && row < game.map_info.map_height - 1) && (column == 0 || column == game.map_info.map_width - 1))
 				draw_l_r_walls(map, game, row, column);
 			if (row == game.map_info.map_height - 1 && (column == 0 || column == game.map_info.map_width - 1))
 				draw_b_l_r_walls(map, game, row, column);
-			if ((column > 0 && column < game.map_info.map_width - 1) && map[row][column] == '1')
+			if ((row == 0 || row == game.map_info.map_height - 1) && (column > 0 && column < game.map_info.map_width - 1))
+				draw_t_b_walls(map, game, row, column);
+			if ((column > 0 && column < game.map_info.map_width - 1) && (row != 0 && row != game.map_info.map_height - 1) && map[row][column] == '1')
     			mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_1wall, column * game.tile_size_px, row * game.tile_size_px, 4, 4, 0);
-			// if (map[row][column] == '0')
-			// 	mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_floor, column * game.tile_size_px, row * game.tile_size_px, 4, 4, 0);
 			if (map[row][column] == 'C')
 				mlx_pixel_put_region(game.mlx, game.win, column * game.tile_size_px,
 				 row *game.tile_size_px, game.tile_size_px, game.tile_size_px, game.colours.c_colour);
 			if (map[row][column] == 'E')
 				mlx_pixel_put_region(game.mlx, game.win, column * game.tile_size_px,
 				 row *game.tile_size_px, game.tile_size_px, game.tile_size_px, game.colours.e_colour);
-			// if (map[row][column] == 'P')
-			// 	mlx_put_transformed_image_to_window(game.mlx, game.win, game.img_p_left, column * game.tile_size_px, row * game.tile_size_px - 32, 4, 4, 0);
 			column++;
 		}
 		row++;
 	}
 	draw_player(game);
+	printf("row = %zu, col = %zu\n", game.map_info.player_pos[0], game.map_info.player_pos[1]);
 }
 
 void	destroy_all_image(t_game_state game)
@@ -178,6 +212,7 @@ void make0(char **dup)
 		i++;
 	}
 }
+
 //end transparency test
 
 int	run_game(char **map, t_map_count map_info)
@@ -206,12 +241,13 @@ int	run_game(char **map, t_map_count map_info)
 		game.colours.e_colour[i++].rgba = 0xa76a22FF;
 	i = 0;
 
-
-	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, move_right, &game);
+	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, move_player, &game);
 	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, exit_event, game.mlx);
 	mlx_on_event(game.mlx, game.win, MLX_WINDOW_EVENT, exit_event, game.mlx);
 
-//	printmap(map1);
+	printf("game ptr = %p\n", (void *)(&game));
+	printf("map  ptr = %p\n", (void *)game.map);
+	printmap(map);
 //	draw_map(map1, game);
 	draw_map(map, game);
     mlx_loop(game.mlx);
@@ -219,6 +255,5 @@ int	run_game(char **map, t_map_count map_info)
 	destroy_all_image(game);
     mlx_destroy_window(game.mlx, game.win);
     mlx_destroy_context(game.mlx);
-	free_memory(map1);
 	return (0);
 }

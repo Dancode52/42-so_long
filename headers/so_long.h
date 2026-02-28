@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/27 12:11:52 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/02/28 11:22:02 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ typedef struct s_colours
 	mlx_color	open_e_colour[64 * 64];
 }	t_colours;
 
+typedef enum	e_direction
+{
+	P_UP,
+	P_DOWN,
+	P_LEFT,
+	P_RIGHT
+}				t_direction;
+
 typedef struct s_game_state
 {
 // ---- MLX ----
@@ -91,6 +99,7 @@ typedef struct s_game_state
 
 // ---- PLAYER STATS ----
 	size_t					step_count;
+	t_direction				player_dir;
 // ---- MAP ----
 	char					**map;
 }	t_game_state;
