@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/28 11:22:02 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:26:56 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,26 @@ typedef enum	e_direction
 	P_RIGHT
 }				t_direction;
 
+typedef enum	e_mvmnt_key
+{
+	W_KEY = 26,
+	UP_KEY = 82,
+	A_KEY = 4,
+	LEFT_KEY = 80,
+	S_KEY = 22,
+	DOWN_KEY = 81,
+	D_KEY = 7,
+	RIGHT_KEY = 79
+}				t_mvnt_key;
+
+typedef struct	s_movement
+{
+	t_mvnt_key	key;
+	t_direction direction;
+	int			delta_row;
+	int			delta_col;
+}				t_movement;
+
 typedef struct s_game_state
 {
 // ---- MLX ----
@@ -94,6 +114,8 @@ typedef struct s_game_state
 	mlx_image				img_p_up;
 	mlx_image				img_p_left;
 	mlx_image				img_p_right;
+	mlx_image				img_egg;
+	mlx_image				img_exit;
 	t_map_count				map_info;
 	t_colours				colours;
 
@@ -166,6 +188,16 @@ void	game_image_player_init(t_game_state *game);
 void	game_image_ground_init(t_game_state *game);
 void	game_win_init(t_game_state *game);
 void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
+
+// ---- MAP DRAWING
+void	draw_map(t_game_state *game);
+void	draw_t_l_r_walls(t_game_state *game, size_t row, size_t column);
+void	draw_b_l_r_walls(t_game_state *game, size_t row, size_t column);
+void	draw_l_r_walls(t_game_state *game, size_t row, size_t column);
+void	draw_t_b_walls(t_game_state *game, size_t row, size_t column);
+void	draw_player(t_game_state *game);
+
+void	move_player(int key, void *param);
 
 void	printmap(char **map);
 #endif

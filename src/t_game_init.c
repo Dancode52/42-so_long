@@ -62,6 +62,10 @@ void	game_image_ground_init(t_game_state *game)
 			"textures/stardew/1wall.png", &game->img_w, &game->img_h);
 	game->img_floor = mlx_new_image_from_file(game->mlx,
 			"textures/stardew/16_16.png", &game->img_w, &game->img_h);
+	game->img_egg = mlx_new_image_from_file(game->mlx,
+			"textures/stardew/egg.png", &game->img_w, &game->img_h);
+	game->img_exit = mlx_new_image_from_file(game->mlx,
+			"textures/stardew/exit.png", &game->img_w, &game->img_h);
 }
 
 void	game_win_init(t_game_state *game)

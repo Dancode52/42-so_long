@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:52:33 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 11:45:05 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:56:45 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ char	**map_maker(char *map_path, t_map_count *map_info)
 		exit(EXIT_FAILURE);
 	}
 	validity_check(map, map_info);
+	ft_printf("height: %i\n", (int)map_info->map_height);
+	ft_printf("width: %i\n", (int)map_info->map_width);
 	return (map);
 }
