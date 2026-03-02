@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/01 16:26:56 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:20:15 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,15 @@ typedef struct s_map_errors
 	int	emptyline;
 }	t_map_errors;
 
-typedef struct s_colours
-{
-	mlx_color	p_colour[64 * 64];
-	mlx_color	wall_colour[64 * 64];
-	mlx_color	c_colour[64 * 64];
-	mlx_color	e_colour[64 * 64];
-	mlx_color	open_e_colour[64 * 64];
-}	t_colours;
-
-typedef enum	e_direction
+typedef enum e_direction
 {
 	P_UP,
 	P_DOWN,
 	P_LEFT,
 	P_RIGHT
-}				t_direction;
+}	t_direction;
 
-typedef enum	e_mvmnt_key
+typedef enum e_mvmnt_key
 {
 	W_KEY = 26,
 	UP_KEY = 82,
@@ -77,15 +68,15 @@ typedef enum	e_mvmnt_key
 	DOWN_KEY = 81,
 	D_KEY = 7,
 	RIGHT_KEY = 79
-}				t_mvnt_key;
+}	t_mvnt_key;
 
-typedef struct	s_movement
+typedef struct s_move
 {
 	t_mvnt_key	key;
-	t_direction direction;
+	t_direction	direction;
 	int			delta_row;
 	int			delta_col;
-}				t_movement;
+}	t_move;
 
 typedef struct s_game_state
 {
@@ -117,19 +108,12 @@ typedef struct s_game_state
 	mlx_image				img_egg;
 	mlx_image				img_exit;
 	t_map_count				map_info;
-	t_colours				colours;
-
 // ---- PLAYER STATS ----
 	size_t					step_count;
 	t_direction				player_dir;
 // ---- MAP ----
 	char					**map;
 }	t_game_state;
-
-// typedef struct s_floodfill_stats
-// {
-// 	int	collectible_hit
-// }
 
 // ---- FLOOD FILL
 void	get_filling(char **map, size_t row, size_t col, t_map_count *map_info);
@@ -191,13 +175,21 @@ void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
 
 // ---- MAP DRAWING
 void	draw_map(t_game_state *game);
+void	draw_floor(t_game_state *game, size_t row, size_t column);
 void	draw_t_l_r_walls(t_game_state *game, size_t row, size_t column);
 void	draw_b_l_r_walls(t_game_state *game, size_t row, size_t column);
 void	draw_l_r_walls(t_game_state *game, size_t row, size_t column);
 void	draw_t_b_walls(t_game_state *game, size_t row, size_t column);
+void	draw_cauliflower(t_game_state *game, size_t row, size_t column);
+void	draw_collectible(t_game_state *game, size_t row, size_t column);
+void	draw_exit(t_game_state *game, size_t row, size_t column);
 void	draw_player(t_game_state *game);
+void	draw_step_count(t_game_state *game);
 
+// ---- PLAYER MOVEMENT
 void	move_player(int key, void *param);
+t_move	*init_moves(void);
+int		is_free_space(t_game_state *game, t_move *moves);
 
 void	printmap(char **map);
 #endif

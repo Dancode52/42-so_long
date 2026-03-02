@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_init.c                                       :+:      :+:    :+:   */
+/*   t_game_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 09:16:12 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/26 09:32:00 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:58:59 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ void	game_init(t_game_state *game, char **map, t_map_count m_inf)
 	game->player_dir = P_DOWN;
 	game_image_ground_init(game);
 	game_image_player_init(game);
-	printf("player dir is %i\n", game->player_dir);
-	printf("in game init\n");
-	printf("game ptr = %p\n", (void *)(game));
-	printf("map  ptr = %p\n", (void *)game->map);
 }
 
 // ---- add fail for no texture
