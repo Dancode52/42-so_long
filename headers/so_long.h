@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:20:15 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:56:04 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ void	game_image_player_init(t_game_state *game);
 void	game_image_ground_init(t_game_state *game);
 void	game_win_init(t_game_state *game);
 void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
+mlx_image	load_image(t_game_state *game, char *str);
+mlx_window	load_window(t_game_state *game);
 
 // ---- MAP DRAWING
 void	draw_map(t_game_state *game);

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:55:10 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:02:15 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	draw_map(t_game_state *game)
 		row++;
 	}
 	draw_player(game);
-	// draw_step_count(game);
 }
 
 void	destroy_all_image(t_game_state *game)
