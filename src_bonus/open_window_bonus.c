@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 13:33:57 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:47:35 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	run_game(char **map, t_map_count map_info)
 	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, exit_event, game.mlx);
 	mlx_on_event(game.mlx, game.win, MLX_WINDOW_EVENT, exit_event, game.mlx);
 	draw_map(&game);
+	mlx_add_loop_hook(game.mlx, enemy_movement, &game);
 	mlx_add_loop_hook(game.mlx, completion_check, &game);
 	mlx_loop(game.mlx);
 	destroy_all_image(&game);

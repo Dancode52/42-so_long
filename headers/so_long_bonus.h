@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 13:41:07 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:48:19 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,6 @@ void	printmap(char **map);
 void	get_enemy_spawn(t_game_state *game);
 void	game_image_actor_init(t_game_state *game);
 void	draw_enemy(t_game_state *game);
+void	enemy_movement(void *game);
 
 #endif
