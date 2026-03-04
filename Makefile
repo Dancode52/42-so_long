@@ -12,13 +12,13 @@ SRC := generic_utils.c map_creation.c map_input_validity_checks_utils_1.c \
 	map_input_validity_checks_utils_2.c map_input_validity_checks.c \
 	map_loading.c map_validity.c so_long.c error_handling.c flood_fill.c \
 	store_info.c open_window.c t_game_init.c draw_map_funcs1.c \
-	draw_map_funcs2.c player_movement.c\
+	draw_map_funcs2.c player_movement.c dimension_checks.c\
 
-SRC_BONUS := generic_utils_bonus.c map_creation_bonus.c map_input_validity_checks_utils_1_bonus.c \
-	map_input_validity_checks_utils_2_bonus.c map_input_validity_checks_bonus.c \
-	map_loading_bonus.c map_validity_bonus.c so_long_bonus.c error_handling_bonus.c flood_fill_bonus.c \
-	store_info_bonus.c open_window_bonus.c t_game_init_bonus.c draw_map_funcs1_bonus.c \
-	draw_map_funcs2_bonus.c player_movement_bonus.c\
+SRC_BONUS := generic_utils.c map_creation.c map_input_validity_checks_utils_1.c \
+	map_input_validity_checks_utils_2.c map_input_validity_checks.c \
+	map_loading.c map_validity.c so_long.c error_handling.c flood_fill.c \
+	store_info.c draw_map_funcs1.c draw_map_funcs2.c player_movement_bonus.c \
+	dimension_checks.c open_window_bonus.c t_game_init_bonus.c enemy_funcs_bonus.c\
 
 SRC_FILES := $(addprefix ./$(SRC_DIR)/, $(SRC))
 SRC_BONUS_FILES := $(addprefix ./$(SRC_DIR)/, $(SRC_BONUS))

@@ -6,11 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:58:26 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/03 15:21:33 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:58:21 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/so_long_bonus.h"
 #include <stdio.h>
 
 void	game_init(t_game_state *game, char **map, t_map_count m_inf)
@@ -19,16 +19,20 @@ void	game_init(t_game_state *game, char **map, t_map_count m_inf)
 	game_win_init(game);
 	game->player_dir = P_DOWN;
 	game_image_ground_init(game);
-	game_image_player_init(game);
+	game_image_actor_init(game);
 }
 
 // ---- add fail for no texture
-void	game_image_player_init(t_game_state *game)
+void	game_image_actor_init(t_game_state *game)
 {
-	game->img_p_down = load_image(game, "textures/stardew/krobusdown.png");
 	game->img_p_up = load_image(game, "textures/stardew/krobusup.png");
+	game->img_p_down = load_image(game, "textures/stardew/krobusdown.png");
 	game->img_p_left = load_image(game, "textures/stardew/krobusleft.png");
 	game->img_p_right = load_image(game, "textures/stardew/krobusright.png");
+	game->v_chic.v_up = load_image(game, "textures/stardew/krobusup.png");
+	game->v_chic.v_down = load_image(game, "textures/stardew/krobusdown.png");
+	game->v_chic.v_left = load_image(game, "textures/stardew/krobusleft.png");
+	game->v_chic.v_right = load_image(game, "textures/stardew/krobusright.png");
 }
 
 // ---- add fail for no texture
@@ -69,5 +73,5 @@ void	game_base_init(t_game_state *game, char **map, t_map_count m_inf)
 	}
 	game->map_info = m_inf;
 	game->map = map;
-	game->tile_size_px = 64;
+	game->tile_size_px = TILE_SIZE_PIXEL;
 }

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 09:16:12 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/03 13:01:01 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 08:57:40 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void	game_base_init(t_game_state *game, char **map, t_map_count m_inf)
 	}
 	game->map_info = m_inf;
 	game->map = map;
-	game->tile_size_px = 64;
+	game->tile_size_px = TILE_SIZE_PIXEL;
 }

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/03 13:56:04 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:47:18 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
+# define MAP_MAX_WIDTH_PX 1920
+# define MAP_MAX_HEIGHT_PX 1080
+# define TILE_SIZE_PIXEL 64
 
 typedef struct s_map_count
 {
@@ -37,6 +40,9 @@ typedef struct s_map_errors
 {
 	int	is_error;
 	int	dimension_error;
+	int	rectangle_error;
+	int	too_wide_error;
+	int	too_tall_error;
 	int	topbot_error;
 	int	leftright_error;
 	int	width_error;
@@ -146,6 +152,9 @@ void	empty_line_check(char *res);
 void	input_validity(char **map, t_map_count *map_info, t_map_errors *error);
 // void	empty_line_check(char **map, t_map_errors *error);
 void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error);
+void	check_width(char **map, t_map_count *map_info, t_map_errors *error);
+void	three_by_three(t_map_count *map_info, t_map_errors *error);
+
 size_t	map_height(char **map);
 void	wall_check(char **map, t_map_count *map_info, t_map_errors *error);
 void	check_top_bot(char **map, t_map_count *map_info, t_map_errors *error);

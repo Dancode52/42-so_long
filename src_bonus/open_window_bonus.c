@@ -6,12 +6,12 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:59:34 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 13:33:57 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../headers/so_long.h"
+#include "../headers/so_long_bonus.h"
 
 void	exit_event(int key, void *param)
 {
@@ -44,6 +44,7 @@ void	draw_map(t_game_state *game)
 		row++;
 	}
 	draw_player(game);
+	draw_enemy(game);
 	draw_step_count(game);
 }
 
@@ -88,6 +89,7 @@ int	run_game(char **map, t_map_count map_info)
 	t_game_state	game;
 
 	game_init(&game, map, map_info);
+	get_enemy_spawn(&game);
 	mlx_set_fps_goal(game.mlx, 60);
 	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, move_player, &game);
 	mlx_on_event(game.mlx, game.win, MLX_KEYDOWN, exit_event, game.mlx);

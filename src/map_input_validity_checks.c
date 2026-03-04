@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 13:30:29 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 11:39:04 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:05:21 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,19 @@ void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error)
 	i = 0;
 	map_info->map_width = ft_strlen(map[i]);
 	map_info->map_height = map_height(map);
-	while (i < map_info->map_height)
-	{
-		if (map_info->map_width != ft_strlen(map[i]))
-			error->dimension_error = 1;
-		i++;
-	}
-	if (map_info->map_width < 3 || map_info->map_height < 3)
-	{
-		if (map_info->map_width < 3)
-			error->width_error = 1;
-		if (map_info->map_height < 3)
-			error->height_error = 1;
-	}
+	if (map_info->map_width * TILE_SIZE_PIXEL > MAP_MAX_WIDTH_PX)
+		error->too_wide_error = 1;
+	if (map_info->map_height * TILE_SIZE_PIXEL > MAP_MAX_HEIGHT_PX)
+		error->too_tall_error = 1;
+	check_width(map, map_info, error);
 	if (map_info->map_width == 3 && map_info->map_height == 3)
 		error->three_by_three = 1;
+	if (error->too_tall_error || error->too_wide_error || error->three_by_three)
+		error->dimension_error = 1;
 	if (error->dimension_error || error->width_error
-		|| error->height_error || error->three_by_three)
+		|| error->height_error || error->three_by_three
+		|| error->too_tall_error || error->too_wide_error
+		|| error->rectangle_error)
 		error->is_error = 1;
 }
 

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:36:21 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/02/20 11:31:35 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:48:45 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ void	error_check(char **map, t_map_errors *error, t_map_count *map_info)
 
 void	dimension_error(t_map_errors *error)
 {
-	if (error->dimension_error)
+	if (error->too_tall_error)
+		ft_putstr_fd("Map is too tall to fit screen\n", 2);
+	if (error->too_wide_error)
+		ft_putstr_fd("Map is too wide ot fit screen\n", 2);
+	if (error->rectangle_error)
 		ft_putstr_fd("Map must be a rectangle\n", 2);
 	if (error->height_error)
 		ft_putstr_fd("Map must be at least 3 tall\n", 2);

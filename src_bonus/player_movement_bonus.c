@@ -6,11 +6,11 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 10:10:48 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:59:43 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:55:35 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/so_long.h"
+#include "../headers/so_long_bonus.h"
 
 t_move	*init_moves(void)
 {
