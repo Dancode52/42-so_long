@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 15:48:19 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/05 16:03:26 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@
 # define MAP_MAX_WIDTH_PX 1920
 # define MAP_MAX_HEIGHT_PX 1080
 # define TILE_SIZE_PIXEL 64
-
-typedef struct s_enemy
-{
-	size_t	spawn_x;
-	size_t	spawn_y;
-	mlx_image v_up;
-	mlx_image v_down;
-	mlx_image v_left;
-	mlx_image v_right;
-} t_enemy;
 
 typedef struct s_map_count
 {
@@ -95,6 +85,17 @@ typedef struct s_move
 	int			delta_col;
 }	t_move;
 
+typedef struct s_enemy
+{
+	size_t	spawn_x;
+	size_t	spawn_y;
+	mlx_image v_up;
+	mlx_image v_down;
+	mlx_image v_left;
+	mlx_image v_right;
+	t_direction vc_dir;
+} t_enemy;
+
 typedef struct s_game_state
 {
 // ---- MLX ----
@@ -125,9 +126,11 @@ typedef struct s_game_state
 	mlx_image				img_egg;
 	mlx_image				img_exit;
 	t_map_count				map_info;
+
 // ---- PLAYER STATS ----
 	size_t					step_count;
 	t_direction				player_dir;
+
 // ---- MAP ----
 	char					**map;
 
@@ -196,6 +199,8 @@ void	game_win_init(t_game_state *game);
 void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
 mlx_image	load_image(t_game_state *game, char *str);
 mlx_window	load_window(t_game_state *game);
+void	destroy_all_image(t_game_state *game);
+void	destroy_on_error(t_game_state *game);
 
 // ---- MAP DRAWING
 void	draw_map(t_game_state *game);
@@ -213,7 +218,7 @@ void	draw_step_count(t_game_state *game);
 // ---- PLAYER MOVEMENT
 void	move_player(int key, void *param);
 t_move	*init_moves(void);
-int		is_free_space(t_game_state *game, t_move *moves);
+int		is_free_space(t_game_state *game, t_move *mvs, size_t row, size_t col);
 
 void	printmap(char **map);
 

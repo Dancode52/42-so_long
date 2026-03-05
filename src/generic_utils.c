@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 11:34:51 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/03 15:16:40 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/05 13:28:50 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ mlx_image	load_image(t_game_state *game, char *str)
 		ft_printf("Error\nTexture loading failed\n");
 		free_memory(game->map);
 		free_map_info(&game->map_info);
+		destroy_on_error(game);
 		exit(EXIT_FAILURE);
 	}
 	return (img);
@@ -69,6 +70,7 @@ mlx_window	load_window(t_game_state *game)
 		free_memory(game->map);
 		free_map_info(&game->map_info);
 		ft_printf("Error\nWindow loading failed\n");
+		mlx_destroy_context(game->mlx);
 		exit(EXIT_FAILURE);
 	}
 	return (win);

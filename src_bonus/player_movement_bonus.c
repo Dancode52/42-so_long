@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 10:10:48 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 12:55:35 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/05 13:48:44 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ t_move	*init_moves(void)
 	return (moves);
 }
 
-int	is_free_space(t_game_state *game, t_move *moves)
-{
-	size_t	col;
-	size_t	row;
+#include <stdio.h>
 
-	col = game->map_info.player_pos[1];
-	row = game->map_info.player_pos[0];
-	if (game->map[row + moves->delta_row][col + moves->delta_col] == '1')
+int	is_free_space(t_game_state *game, t_move *mvs, size_t row, size_t col)
+{
+	if (game->map[row + mvs->delta_row][col + mvs->delta_col] == '1')
 		return (0);
 	return (1);
 }
@@ -52,7 +49,8 @@ void	move_player(int in_key, void *param)
 	{
 		if ((int)moves[i].key == in_key)
 		{
-			if (is_free_space(game, &(moves[i])))
+			if (is_free_space(game, &(moves)[i],
+				game->map_info.player_pos[0], game->map_info.player_pos[1]))
 			{
 				game->map_info.player_pos[0] += moves[i].delta_row;
 				game->map_info.player_pos[1] += moves[i].delta_col;

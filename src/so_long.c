@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:01:31 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/05 13:11:27 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	main(int argc, char **argv)
 	}
 	map = map_maker(argv[1], &map_info);
 	run_game(map, map_info);
-	if (!map)
-		return (0);
 	free_memory(map);
 	free_map_info(&map_info);
 	return (0);

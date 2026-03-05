@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 12:58:26 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 12:58:21 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:18:54 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	game_image_actor_init(t_game_state *game)
 	game->img_p_down = load_image(game, "textures/stardew/krobusdown.png");
 	game->img_p_left = load_image(game, "textures/stardew/krobusleft.png");
 	game->img_p_right = load_image(game, "textures/stardew/krobusright.png");
-	game->v_chic.v_up = load_image(game, "textures/stardew/krobusup.png");
-	game->v_chic.v_down = load_image(game, "textures/stardew/krobusdown.png");
-	game->v_chic.v_left = load_image(game, "textures/stardew/krobusleft.png");
-	game->v_chic.v_right = load_image(game, "textures/stardew/krobusright.png");
+	game->v_chic.v_up = load_image(game, "textures/stardew/void_32.png");
+	game->v_chic.v_down = load_image(game, "textures/stardew/void_0.png");
+	game->v_chic.v_left = load_image(game, "textures/stardew/void_48.png");
+	game->v_chic.v_right = load_image(game, "textures/stardew/void_16.png");
 }
 
 // ---- add fail for no texture
