@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/06 10:40:20 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 11:14:24 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_BONUS_H
 # include "./libft.h"
 # include "./get_next_line_bonus.h"
-# include "./mlx.h"
-# include "./mlx_extended.h"
+# include "../MacroLibX/includes/mlx.h"
+# include "../MacroLibX/includes/mlx_extended.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
