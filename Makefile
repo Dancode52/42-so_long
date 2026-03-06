@@ -10,13 +10,13 @@ SRC_BONUS_DIR := src_bonus
 
 SRC := generic_utils.c map_creation.c map_input_validity_checks_utils_1.c \
 	map_input_validity_checks_utils_2.c map_input_validity_checks.c \
-	map_loading.c map_validity.c so_long.c error_handling.c flood_fill.c \
+	map_loading.c map_validity.c main.c error_handling.c flood_fill.c \
 	store_info.c open_window.c t_game_init.c draw_map_funcs1.c \
 	draw_map_funcs2.c player_movement.c dimension_checks.c init_error.c\
 
 SRC_BONUS := generic_utils.c map_creation.c map_input_validity_checks_utils_1.c \
 	map_input_validity_checks_utils_2.c map_input_validity_checks.c \
-	map_loading.c map_validity.c so_long.c error_handling.c flood_fill.c \
+	map_loading.c map_validity.c main_bonus.c error_handling.c flood_fill.c \
 	store_info.c draw_map_funcs1.c draw_map_funcs2.c player_movement_bonus.c \
 	dimension_checks.c open_window_bonus.c t_game_init_bonus.c \
 	init_error_bonus.c enemy_funcs_bonus.c\
@@ -39,6 +39,7 @@ $(LIBFT):
 	$(MAKE) bonus -C my_libft
 
 $(MACROLIBX):
+	git clone https://github.com/seekrs/MacroLibX.git
 	$(MAKE) -C MacroLibX -j
 
 bonus: $(NAME_BONUS)
@@ -63,6 +64,7 @@ fclean: clean
 	rm -f $(NAME) $(NAME_BONUS)
 	$(MAKE) fclean -C my_libft
 	$(MAKE) fclean -C MacroLibX
+	rm -rf MacroLibX
 
 re: fclean all
 
