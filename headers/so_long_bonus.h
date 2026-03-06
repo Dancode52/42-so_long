@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 15:03:49 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 16:03:26 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:40:20 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ typedef struct s_move
 
 typedef struct s_enemy
 {
-	size_t	spawn_x;
-	size_t	spawn_y;
-	mlx_image v_up;
-	mlx_image v_down;
-	mlx_image v_left;
-	mlx_image v_right;
-	t_direction vc_dir;
-} t_enemy;
+	size_t		spawn_x;
+	size_t		spawn_y;
+	mlx_image	v_up;
+	mlx_image	v_down;
+	mlx_image	v_left;
+	mlx_image	v_right;
+	t_direction	vc_dir;
+}	t_enemy;
 
 typedef struct s_game_state
 {
@@ -124,7 +124,8 @@ typedef struct s_game_state
 	mlx_image				img_p_left;
 	mlx_image				img_p_right;
 	mlx_image				img_egg;
-	mlx_image				img_exit;
+	mlx_image				img_exit_c;
+	mlx_image				img_exit_o;
 	t_map_count				map_info;
 
 // ---- PLAYER STATS ----
@@ -138,93 +139,102 @@ typedef struct s_game_state
 }	t_game_state;
 
 // ---- FLOOD FILL
-void	get_filling(char **map, size_t row, size_t col, t_map_count *map_info);
-char	**map_copy(char **map, t_map_count *map_info);
-void	set_start_point(size_t *row, size_t *column, t_map_count *map_info);
-void	is_map_playable(char **copy, t_map_errors *error);
-void	flood_fill(char **map, t_map_count *map_info, t_map_errors *error);
+void		get_filling(char **map, size_t row, size_t col,
+				t_map_count *map_info);
+char		**map_copy(char **map, t_map_count *map_info);
+void		set_start_point(size_t *row, size_t *column, t_map_count *map_info);
+void		is_map_playable(char **copy, t_map_errors *error);
+void		flood_fill(char **map, t_map_count *map_info, t_map_errors *error);
 
 // ---- GEN UTILS
-void	free_memory(char **memory);
-void	free_map_info(t_map_count *map_info);
-void	malloc_fail(char **map);
+void		free_memory(char **memory);
+void		free_map_info(t_map_count *map_info);
+void		malloc_fail(char **map);
 
 // ---- MAP CREATION FUNCTIONS
-char	**map_maker(char *map_path, t_map_count *map_info);
-char	**map_loading(char *map_path);
-void	map_path_check(char *mappath);
-char	*load_map_to_string(char *map_path);
-char	*make_string_from_file(char *buf, int fd);
-char	**load_map_to_array(char *mapstr);
+char		**map_maker(char *map_path, t_map_count *map_info);
+char		**map_loading(char *map_path);
+void		map_path_check(char *mappath);
+char		*load_map_to_string(char *map_path);
+char		*make_string_from_file(char *buf, int fd);
+char		**load_map_to_array(char *mapstr);
 
 // ---- INFO STORING FOR VALIDATION
-void	store_player(t_map_count *map_info, size_t row, size_t column);
-void	store_exit(t_map_count *map_info, size_t row, size_t column);
-void	store_collect(t_map_count *m_info, size_t row, size_t col, char **map);
-void	store_info(char **map, t_map_count *m_info);
+void		store_player(t_map_count *map_info, size_t row, size_t column);
+void		store_exit(t_map_count *map_info, size_t row, size_t column);
+void		store_collect(t_map_count *m_info, size_t row, size_t col,
+				char **map);
+void		store_info(char **map, t_map_count *m_info);
 
 // ---- MAP VALIDATION
-void	empty_line_check(char *res);
-void	input_validity(char **map, t_map_count *map_info, t_map_errors *error);
+void		empty_line_check(char *res);
+void		input_validity(char **map, t_map_count *map_info,
+				t_map_errors *error);
 // void	empty_line_check(char **map, t_map_errors *error);
-void	dimension_check(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_width(char **map, t_map_count *map_info, t_map_errors *error);
-void	three_by_three(t_map_count *map_info, t_map_errors *error);
+void		dimension_check(char **map, t_map_count *map_info,
+				t_map_errors *error);
+void		check_width(char **map, t_map_count *map_info, t_map_errors *error);
+void		three_by_three(t_map_count *map_info, t_map_errors *error);
 
-size_t	map_height(char **map);
-void	wall_check(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_top_bot(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_left_rht(char **map, t_map_count *map_info, t_map_errors *error);
-size_t	map_height(char **map);
-void	parameter_check(char **map, t_map_count *map_info, t_map_errors *error);
-void	check_valid_char(char map_tile, t_map_errors *error);
-void	count_player(t_map_count *count, char map_tile);
-void	count_collectible(t_map_count *count, char map_tile);
-void	count_exit(t_map_count *count, char map_tile);
-void	validate_count(t_map_count *count, t_map_errors *error);
-void	validity_check(char **map, t_map_count *map_info);
+size_t		map_height(char **map);
+void		wall_check(char **map, t_map_count *map_info,
+				t_map_errors *error);
+void		check_top_bot(char **map, t_map_count *map_info,
+				t_map_errors *error);
+void		check_left_rht(char **map, t_map_count *map_info,
+				t_map_errors *error);
+size_t		map_height(char **map);
+void		parameter_check(char **map, t_map_count *map_info,
+				t_map_errors *error);
+void		check_valid_char(char map_tile, t_map_errors *error);
+void		count_player(t_map_count *count, char map_tile);
+void		count_collectible(t_map_count *count, char map_tile);
+void		count_exit(t_map_count *count, char map_tile);
+void		validate_count(t_map_count *count, t_map_errors *error);
+void		validity_check(char **map, t_map_count *map_info);
 //void	error_check(char **map, t_map_errors *error);
-void	error_check(char **map, t_map_errors *error, t_map_count *map_info);
-void	dimension_error(t_map_errors *error);
+void		error_check(char **map, t_map_errors *error, t_map_count *map_info);
+void		dimension_error(t_map_errors *error);
 //void	validation_error(char *str);
 
 // ---- OPEN GAME STUFF
-int		run_game(char **map, t_map_count map_info);
+int			run_game(char **map, t_map_count map_info);
 
 // ---- MLX INIT FUNCS
-void	game_init(t_game_state *game, char **map, t_map_count m_inf);
-void	game_image_player_init(t_game_state *game);
-void	game_image_ground_init(t_game_state *game);
-void	game_win_init(t_game_state *game);
-void	game_base_init(t_game_state *game, char **map, t_map_count m_inf);
+void		game_init(t_game_state *game, char **map, t_map_count m_inf);
+void		game_image_player_init(t_game_state *game);
+void		game_image_ground_init(t_game_state *game);
+void		game_win_init(t_game_state *game);
+void		game_base_init(t_game_state *game, char **map, t_map_count m_inf);
 mlx_image	load_image(t_game_state *game, char *str);
 mlx_window	load_window(t_game_state *game);
-void	destroy_all_image(t_game_state *game);
-void	destroy_on_error(t_game_state *game);
+void		destroy_all_image(t_game_state *game);
+void		destroy_on_error(t_game_state *game);
 
 // ---- MAP DRAWING
-void	draw_map(t_game_state *game);
-void	draw_floor(t_game_state *game, size_t row, size_t column);
-void	draw_t_l_r_walls(t_game_state *game, size_t row, size_t column);
-void	draw_b_l_r_walls(t_game_state *game, size_t row, size_t column);
-void	draw_l_r_walls(t_game_state *game, size_t row, size_t column);
-void	draw_t_b_walls(t_game_state *game, size_t row, size_t column);
-void	draw_cauliflower(t_game_state *game, size_t row, size_t column);
-void	draw_collectible(t_game_state *game, size_t row, size_t column);
-void	draw_exit(t_game_state *game, size_t row, size_t column);
-void	draw_player(t_game_state *game);
-void	draw_step_count(t_game_state *game);
+void		draw_map(t_game_state *game);
+void		draw_floor(t_game_state *game, size_t row, size_t column);
+void		draw_t_l_r_walls(t_game_state *game, size_t row, size_t column);
+void		draw_b_l_r_walls(t_game_state *game, size_t row, size_t column);
+void		draw_l_r_walls(t_game_state *game, size_t row, size_t column);
+void		draw_t_b_walls(t_game_state *game, size_t row, size_t column);
+void		draw_cauliflower(t_game_state *game, size_t row, size_t column);
+void		draw_collectible(t_game_state *game, size_t row, size_t column);
+void		draw_exit(t_game_state *game, size_t row, size_t column);
+void		draw_player(t_game_state *game);
+void		draw_step_count(t_game_state *game);
 
 // ---- PLAYER MOVEMENT
-void	move_player(int key, void *param);
-t_move	*init_moves(void);
-int		is_free_space(t_game_state *game, t_move *mvs, size_t row, size_t col);
+void		move_player(int key, void *param);
+t_move		*init_moves(void);
+int			is_free_space(t_game_state *game, t_move *mvs, size_t row,
+				size_t col);
 
-void	printmap(char **map);
+void		printmap(char **map);
 
-void	get_enemy_spawn(t_game_state *game);
-void	game_image_actor_init(t_game_state *game);
-void	draw_enemy(t_game_state *game);
-void	enemy_movement(void *game);
+void		get_enemy_spawn(t_game_state *game);
+void		game_image_actor_init(t_game_state *game);
+void		draw_enemy(t_game_state *game);
+void		enemy_movement(void *game);
 
 #endif

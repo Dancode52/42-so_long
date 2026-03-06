@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:05:41 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 11:17:39 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 11:08:43 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	destroy_all_image(t_game_state *game)
 	mlx_destroy_image(game->mlx, game->img_p_right);
 	mlx_destroy_image(game->mlx, game->img_p_left);
 	mlx_destroy_image(game->mlx, game->img_egg);
-	mlx_destroy_image(game->mlx, game->img_exit);
+	mlx_destroy_image(game->mlx, game->img_exit_o);
+	mlx_destroy_image(game->mlx, game->img_exit_c);
 	mlx_destroy_image(game->mlx, game->v_chic.v_down);
 	mlx_destroy_image(game->mlx, game->v_chic.v_up);
 	mlx_destroy_image(game->mlx, game->v_chic.v_left);
@@ -83,12 +84,12 @@ void	completion_check(void *param)
 	p_row = game->map_info.player_pos[0];
 	if (p_col == game->v_chic.spawn_x && p_row == game->v_chic.spawn_y)
 	{
-		ft_printf("--- YOU LOSE! --- \n");
+		ft_printf("\n --- YOU LOSE! --- \n");
 		mlx_loop_end(game->mlx);
 	}
 	if (game->map_info.collect_count == 0 && game->map[p_row][p_col] == 'E')
 	{
-		ft_printf("--- YOU WIN! --- \n");
+		ft_printf("\n --- YOU WIN! --- \n");
 		mlx_loop_end(game->mlx);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 10:10:48 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 13:48:44 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:44:04 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ t_move	*init_moves(void)
 	moves[7] = (t_move){RIGHT_KEY, P_RIGHT, 0, 1};
 	return (moves);
 }
-
-#include <stdio.h>
 
 int	is_free_space(t_game_state *game, t_move *mvs, size_t row, size_t col)
 {

@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 09:45:37 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:47:31 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:43:48 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ void	draw_collectible(t_game_state *game, size_t row, size_t column)
 
 void	draw_exit(t_game_state *game, size_t row, size_t column)
 {
+	if (game->map[row][column] == 'E' && game->map_info.collect_count)
+		mlx_put_transformed_image_to_window(game->mlx, game->win,
+			game->img_exit_c, column * game->tile_size_px,
+			row * game->tile_size_px, 4, 4, 0);
 	if (game->map[row][column] == 'E' && game->map_info.collect_count == 0)
 		mlx_put_transformed_image_to_window(game->mlx, game->win,
-			game->img_exit, column * game->tile_size_px,
+			game->img_exit_o, column * game->tile_size_px,
 			row * game->tile_size_px, 4, 4, 0);
 }
 
@@ -56,8 +60,8 @@ void	draw_floor(t_game_state *game, size_t row, size_t column)
 
 void	draw_step_count(t_game_state *game)
 {
-	char *tmp;
-	char *c_itoa;
+	char	*tmp;
+	char	*c_itoa;
 
 	tmp = NULL;
 	c_itoa = ft_itoa(game->step_count);

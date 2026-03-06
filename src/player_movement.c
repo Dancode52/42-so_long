@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 10:10:48 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/02 12:43:58 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:18:18 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	move_player(int in_key, void *param)
 				game->map_info.player_pos[0] += moves[i].delta_row;
 				game->map_info.player_pos[1] += moves[i].delta_col;
 				game->step_count++;
-				ft_printf("Steps taken: %i\n", (int)game->step_count);
+				ft_printf("\rSteps taken: %i", (int)game->step_count);
 			}
 			game->player_dir = moves[i].direction;
 			break ;

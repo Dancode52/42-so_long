@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:57:22 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 13:11:27 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 10:42:53 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,3 @@ int	main(int argc, char **argv)
 	free_map_info(&map_info);
 	return (0);
 }
-
-

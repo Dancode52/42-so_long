@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 12:58:57 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 15:20:05 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 11:08:39 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	get_enemy_spawn(t_game_state *game)
 	srand(time(NULL));
 	while (game->map[rand_y][rand_x] != '0')
 	{
-		rand_y = rand() % game->map_info.map_height;
-		rand_x = rand() % game->map_info.map_width;
+		rand_y = rand() % (game->map_info.map_height - 1);
+		rand_x = rand() % (game->map_info.map_width - 1);
 	}
 	game->v_chic.spawn_x = rand_x;
 	game->v_chic.spawn_y = rand_y;
@@ -53,17 +53,18 @@ void	draw_enemy(t_game_state *game)
 
 void	do_move(t_game_state *game, int dir)
 {
-	int i;
-	int tryagain = 0;
+	int		i;
+	int		tryagain;
 	t_move	*moves;
 
 	(void)dir;
+	tryagain = 0;
 	moves = init_moves();
 	while (tryagain < 10)
 	{
 		i = rand() % 8;
 		if (is_free_space(game, &(moves[i]),
-			game->v_chic.spawn_y, game->v_chic.spawn_x))
+				game->v_chic.spawn_y, game->v_chic.spawn_x))
 		{
 			game->v_chic.spawn_y += moves[i].delta_row;
 			game->v_chic.spawn_x += moves[i].delta_col;
@@ -74,11 +75,10 @@ void	do_move(t_game_state *game, int dir)
 	game->v_chic.vc_dir = moves[i].direction;
 }
 
-
 void	enemy_movement(void *param)
 {
-	static int	i;
-	t_game_state *game;
+	static int		i;
+	t_game_state	*game;
 
 	game = (t_game_state *)param;
 	i++;

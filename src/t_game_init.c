@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 09:16:12 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/04 08:57:40 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 08:59:56 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	game_image_ground_init(t_game_state *game)
 	game->img_1wall = load_image(game, "textures/stardew/1wall.png");
 	game->img_floor = load_image(game, "textures/stardew/16_16.png");
 	game->img_egg = load_image(game, "textures/stardew/egg.png");
-	game->img_exit = load_image(game, "textures/stardew/exit.png");
+	game->img_exit_o = load_image(game, "textures/stardew/exit_open.png");
+	game->img_exit_c = load_image(game, "textures/stardew/exit_closed.png");
 }
 
 void	game_win_init(t_game_state *game)

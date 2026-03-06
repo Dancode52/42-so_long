@@ -6,7 +6,7 @@
 /*   By: dlanehar <dlanehar@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 11:19:28 by dlanehar          #+#    #+#             */
-/*   Updated: 2026/03/05 13:09:43 by dlanehar         ###   ########.fr       */
+/*   Updated: 2026/03/06 08:36:07 by dlanehar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	destroy_on_error_cont(t_game_state *game)
 {
-	if (game->img_exit)
-		mlx_destroy_image(game->mlx, game->img_exit);
+	if (game->img_exit_o)
+		mlx_destroy_image(game->mlx, game->img_exit_o);
 	if (game->img_p_down)
 		mlx_destroy_image(game->mlx, game->img_p_down);
 	if (game->img_p_left)

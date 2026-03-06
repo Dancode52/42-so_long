@@ -1,7 +1,7 @@
 NAME := so_long
 NAME_BONUS := so_long_bonus
 CC := cc
-CFLAGS := -Wall -Werror -Wextra -g
+CFLAGS := -Wall -Werror -Wextra -g #-fsanitize=address
 LIBFT := my_libft/libft.a
 MACROLIBX := MacroLibX/libmlx.so
 
